@@ -89,7 +89,7 @@ function Architecture() {
               ▌ architecture
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl text-[var(--b-text)] md:text-5xl">
-              4 ノードの<br />ネットワーク。
+              CRM・DB・CTI・<br />オプションで構成。
             </h2>
           </div>
           <p className="md:col-span-6 md:col-start-7 text-base leading-loose text-[var(--b-muted)] md:text-lg">
@@ -170,7 +170,7 @@ function Strengths() {
           ▌ strengths
         </p>
         <h2 className="mt-4 font-serif-jp text-3xl text-[var(--b-text)] md:text-5xl">
-          3 つの強み・量子のグリッド
+          3 つの強み
         </h2>
         <div className="mt-14 grid auto-rows-[minmax(180px,_auto)] gap-5 md:grid-cols-3">
           {strengths.map((s, i) => (
@@ -215,7 +215,7 @@ function TriggerAction() {
               ▌ trigger × action
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl text-[var(--b-text)] md:text-5xl">
-              組み合わせる<br />量子ロジック。
+              組み合わせるだけで、<br />業務ロジック。
             </h2>
           </div>
           <p className="md:col-span-6 md:col-start-7 text-base leading-loose text-[var(--b-muted)] md:text-lg">
@@ -394,7 +394,7 @@ function Gateways() {
             href="/sample-b/screen-builder"
             eyebrow="Slide 04"
             title="業務画面作成機能"
-            description="3 つの手法でノーコードに業務画面を構築。トリガーとアクションを繋ぐ、量子の組み立て。"
+            description="3 つの手法でノーコードに業務画面を構築。トリガーとアクションを組み合わせ、業務にフィットする画面を作ります。"
             accent="mint"
             preview={<MiniGrid />}
             imageSrc="/images/sample-b/sb-gateway-screen.webp"

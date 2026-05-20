@@ -21,18 +21,18 @@ export function EditorialHero() {
             </motion.p>
 
             <h1 className="mt-6 font-serif-jp text-[2.25rem] leading-[1.1] tracking-tight sm:text-5xl md:mt-8 md:text-6xl lg:text-7xl">
-              <RevealLine delay={0.05}>コンタクトセンターに、</RevealLine>
+              <RevealLine delay={0.05}>コンタクトセンター業務、</RevealLine>
               <RevealLine delay={0.2}>
-                <span className="font-light italic text-[var(--c-mustard)]">
-                  簡単に
-                </span>
-                導入できる
-              </RevealLine>
-              <RevealLine delay={0.35}>
                 <span className="font-light italic text-[var(--c-deep)]">
                   CRM
                 </span>
-                を。
+                を
+              </RevealLine>
+              <RevealLine delay={0.35}>
+                <span className="font-light italic text-[var(--c-mustard)]">
+                  簡単
+                </span>
+                導入。
               </RevealLine>
             </h1>
 

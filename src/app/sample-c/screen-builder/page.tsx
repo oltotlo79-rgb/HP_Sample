@@ -267,7 +267,7 @@ export default function SampleCScreenBuilder() {
       <section className="px-6 pb-32 md:px-12">
         <div className="mx-auto max-w-7xl">
           <PullQuote attribution="QuickCRM">
-            業務に最適な画面は、お客様自身の手で編む。
+            お客様ご自身で構築できる CRM システム。
           </PullQuote>
         </div>
       </section>

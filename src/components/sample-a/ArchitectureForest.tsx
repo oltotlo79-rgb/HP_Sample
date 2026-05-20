@@ -186,11 +186,11 @@ export function ArchitectureForest() {
             className="mt-3 hidden font-serif-jp text-2xl leading-tight text-[var(--a-forest)] md:block md:text-3xl"
             style={{ writingMode: "vertical-rl" }}
           >
-            全体構成 ── 業務に育つ、一本の樹。
+            QuickCRM クラウドサービスの全体構成。
           </p>
           {/* モバイル時は横書き */}
           <h3 className="mt-3 font-serif-jp text-2xl leading-tight text-[var(--a-forest)] md:hidden">
-            全体構成 ── 業務に育つ、一本の樹。
+            QuickCRM クラウドサービスの全体構成。
           </h3>
           <p className="mt-6 text-sm leading-loose text-[var(--a-ink)]/80 md:max-w-[18ch]">
             {systemArchitecture.intro}

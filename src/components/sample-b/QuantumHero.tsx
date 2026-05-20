@@ -47,10 +47,10 @@ export function QuantumHero() {
 
           <h1 className="mt-6 text-[2.25rem] leading-[1.05] tracking-tight sm:text-5xl md:mt-8 md:text-6xl lg:text-7xl">
             <RevealText delay={0.1} className="font-serif-jp text-[var(--b-text)]">
-              コンタクトセンターに、
+              コンタクトセンター業務、
             </RevealText>
             <RevealText delay={0.3} className="font-serif-jp text-[var(--b-mint)]">
-              簡単に導入できる CRM。
+              CRM を簡単導入。
             </RevealText>
           </h1>
 

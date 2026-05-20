@@ -119,22 +119,38 @@ export function ArchitectureLedger() {
             </text>
           </motion.g>
 
-          {/* 引出し線 */}
+          {/* マーカー定義 (auto-orient) */}
+          <defs>
+            <marker
+              id="al-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#2F5233" />
+            </marker>
+          </defs>
+
+          {/* 引出し線: CRM 中心 (540, 330) から各周辺ボックスのエッジ中央へ */}
           <motion.g
             initial={{ pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.7 }}
+            stroke="#2F5233"
+            strokeWidth="0.8"
+            fill="none"
           >
-            <path d="M 360 240 L 240 200" stroke="#2F5233" strokeWidth="0.8" fill="none" />
-            <path d="M 720 240 L 840 200" stroke="#2F5233" strokeWidth="0.8" fill="none" />
-            <path d="M 540 420 L 540 500" stroke="#2F5233" strokeWidth="0.8" fill="none" />
+            {/* CRM 上辺 (440,240) → CTI 下辺中央 (240,200) */}
+            <path d="M 440 240 L 240 200" markerEnd="url(#al-arrow)" />
+            {/* CRM 上辺 (640,240) → OPTIONS 下辺中央 (840,200) */}
+            <path d="M 640 240 L 840 200" markerEnd="url(#al-arrow)" />
+            {/* CRM 下辺中央 (540,420) → DB 上辺中央 (540,500) */}
+            <path d="M 540 420 L 540 500" markerEnd="url(#al-arrow)" />
           </motion.g>
-
-          {/* 矢印頭 */}
-          <polygon points="240,200 234,194 234,206" fill="#2F5233" />
-          <polygon points="840,200 846,194 846,206" fill="#2F5233" />
-          <polygon points="540,500 534,494 546,494" fill="#2F5233" />
 
           {/* 脚注 */}
           <text x="40" y="660" fontFamily="serif" fontSize="10" fill="#2F5233" opacity="0.65">

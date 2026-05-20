@@ -462,9 +462,9 @@ export const samples = [
     href: "/sample-a",
     label: "Sample A",
     concept: "Organic Forest",
-    tagline: "あたたかい業務体験で、操作する人に寄り添う。",
+    tagline: "緑とぬくもりで、業務に寄り添う。",
     description:
-      "緑と水彩の有機的な世界観で、コンタクトセンターの CRM を「業務に呼吸を与える」プロダクトとして表現します。",
+      "緑と水彩の有機的なトーンで、コンタクトセンター CRM を編集デザインに近い体裁で見せます。",
     accent: "#2D6A4F",
   },
   {
@@ -472,9 +472,9 @@ export const samples = [
     href: "/sample-b",
     label: "Sample B",
     concept: "Neo Mint Glass",
-    tagline: "次世代の運用体験を、ガラスと量子グリッドで。",
+    tagline: "ダーク UI で、運用の先進性を伝える。",
     description:
-      "近未来のダーク UI とガラスモーフィズムで、CTI・自動架電・リアルタイムレポートの先進性を表現します。",
+      "ダークモードのモニタートーンとガラスのレイヤで、CTI・自動架電・リアルタイムレポートの先進性を表現します。",
     accent: "#5EEAD4",
   },
   {

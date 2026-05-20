@@ -47,8 +47,8 @@ export function LeafHero() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.2, 0.7, 0.2, 1] }}
             className="mt-5 font-serif-jp text-[2.25rem] leading-[1.12] tracking-tight text-[var(--a-forest)] sm:text-5xl md:mt-6 md:text-6xl lg:text-7xl"
           >
-            コンタクトセンターに<br />
-            <span className="text-[var(--a-moss)]">簡単に導入できる</span> CRM。
+            コンタクトセンター業務、<br />
+            <span className="text-[var(--a-moss)]">CRM を簡単導入</span>。
           </motion.h1>
 
           <motion.p
