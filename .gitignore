@@ -25,4 +25,4 @@ Thumbs.db
 # editor
 .vscode
 .idea
-tsbuildinfo
+*.tsbuildinfo
