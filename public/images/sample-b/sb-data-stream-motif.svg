@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 120" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="streamGradientB" x1="0" y1="0" x2="1920" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5EEAD4" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#5EEAD4" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#5EEAD4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#streamGradientB)" stroke-linecap="round">
+    <path d="M0 18H1920" stroke-width="1" stroke-dasharray="54 34 10 24"/>
+    <path d="M0 30H1920" stroke-width="1.2" stroke-dasharray="120 50 22 36"/>
+    <path d="M0 42H1920" stroke-width=".8" stroke-dasharray="28 28 80 48"/>
+    <path d="M0 54H1920" stroke-width="1.5" stroke-dasharray="180 70 36 42"/>
+    <path d="M0 66H1920" stroke-width=".9" stroke-dasharray="64 32 14 42"/>
+    <path d="M0 78H1920" stroke-width="1.1" stroke-dasharray="96 42 18 28"/>
+    <path d="M0 90H1920" stroke-width=".8" stroke-dasharray="36 38 72 54"/>
+    <path d="M0 102H1920" stroke-width="1.2" stroke-dasharray="140 62 24 34"/>
+  </g>
+</svg>

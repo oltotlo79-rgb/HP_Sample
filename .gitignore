@@ -1,0 +1,27 @@
+node_modules
+.next
+.open-next
+out
+.vercel
+.wrangler
+
+# 元資料 (非公開)
+*.pptx
+*.pptm
+*.ppt
+
+# env
+.env*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode
+.idea

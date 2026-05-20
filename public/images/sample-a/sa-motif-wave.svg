@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 120" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="waveGradientA" x1="0" y1="0" x2="1920" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1B4332"/>
+      <stop offset="1" stop-color="#95D5B2"/>
+    </linearGradient>
+  </defs>
+  <path d="M0 58C190 24 322 18 486 42C664 68 789 108 978 88C1158 69 1264 25 1444 28C1620 31 1772 72 1920 43V120H0Z" fill="url(#waveGradientA)" opacity=".92"/>
+  <path d="M0 78C176 42 336 36 520 60C704 84 817 112 984 98C1168 83 1278 45 1460 48C1624 51 1778 82 1920 58V120H0Z" fill="url(#waveGradientA)" opacity=".42"/>
+</svg>
