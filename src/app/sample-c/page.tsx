@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { EditorialHero } from "@/components/sample-c/EditorialHero";
 import { IndexList } from "@/components/sample-c/IndexList";
@@ -47,6 +48,19 @@ function EditorsNote() {
             <br />
             Edition · QuickCRM
           </p>
+          {/* 編集デスクのフラットレイ */}
+          <div
+            className="relative mt-8 aspect-[4/5] w-full overflow-hidden"
+            style={{ border: "1px solid var(--c-rule)" }}
+          >
+            <Image
+              src="/images/photos/sample-c/editorial-spread.webp"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 22vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
         <div className="md:col-span-9">
           <p className="font-serif-jp text-2xl leading-relaxed text-[var(--c-deep)] md:text-4xl">
@@ -123,16 +137,38 @@ function StrengthsFolio() {
   return (
     <section className="px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 flex items-baseline justify-between">
-          <h2 className="font-serif-jp text-3xl text-[var(--c-deep)] md:text-5xl">
-            <span className="font-space-grotesk text-[10px] uppercase tracking-[0.4em] text-[var(--c-mustard)]">
-              §05 ──
-            </span>{" "}
-            Index of Strengths
-          </h2>
-          <p className="hidden font-space-grotesk text-[10px] uppercase tracking-[0.3em] text-[var(--c-ink)]/60 md:block">
-            p.03
-          </p>
+        <div className="mb-12 grid items-end gap-8 md:grid-cols-12 md:gap-12">
+          {/* チーム / 業務風景 (誌面の差し色として一枚) */}
+          <div className="md:col-span-5">
+            <div
+              className="relative aspect-[4/5] w-full overflow-hidden"
+              style={{ border: "1px solid var(--c-rule)" }}
+            >
+              <Image
+                src="/images/photos/sample-c/strength-team.webp"
+                alt=""
+                fill
+                sizes="(min-width: 768px) 38vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <p className="mt-3 font-space-grotesk text-[10px] uppercase tracking-[0.3em] text-[var(--c-ink)]/55">
+              Plate · 03
+            </p>
+          </div>
+
+          <div className="md:col-span-7">
+            <h2 className="font-serif-jp text-3xl text-[var(--c-deep)] md:text-5xl">
+              <span className="font-space-grotesk text-[10px] uppercase tracking-[0.4em] text-[var(--c-mustard)]">
+                §05 ──
+              </span>{" "}
+              Index of Strengths
+            </h2>
+            <p className="mt-6 font-serif-jp text-base leading-loose text-[var(--c-ink)]/80 md:text-lg">
+              利用形態の豊富さ・開発手法の柔軟さ・手軽な導入。
+              QuickCRM の核となる 3 つの強みを、誌面の目次として読み下します。
+            </p>
+          </div>
         </div>
         <IndexList
           items={strengths.map((s) => ({ no: s.no, title: s.title, body: s.body }))}

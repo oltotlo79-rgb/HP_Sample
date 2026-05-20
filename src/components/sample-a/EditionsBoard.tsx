@@ -1,12 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { editions, expertise } from "@/content/product";
 
 export function EditionsBoard() {
   return (
     <div className="grid gap-12 md:grid-cols-12">
       <aside className="md:col-span-4">
+        {/* 規模感を伝える写真 */}
+        <div
+          className="relative mb-8 aspect-[4/5] w-full overflow-hidden rounded-3xl"
+          style={{ border: "1px solid rgba(27,67,50,0.12)" }}
+        >
+          <Image
+            src="/images/photos/sample-a/editions-room.webp"
+            alt=""
+            fill
+            sizes="(min-width: 768px) 30vw, 100vw"
+            className="object-cover"
+          />
+        </div>
         <p className="font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
           Editions × Expertise
         </p>

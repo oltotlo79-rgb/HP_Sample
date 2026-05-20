@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 type Strength = { no: string; title: string; body: string };
 
 const IMAGES = [
-  "/images/sample-a/sa-strength-01.webp",
-  "/images/sample-a/sa-strength-02.webp",
-  "/images/sample-a/sa-strength-03.webp",
+  "/images/photos/sample-a/strength-scale.webp",
+  "/images/photos/sample-a/strength-flex.webp",
+  "/images/photos/sample-a/strength-quick.webp",
 ];
 
 export function StrengthCard({

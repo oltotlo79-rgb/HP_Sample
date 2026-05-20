@@ -10,28 +10,22 @@ export function LeafHero() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
+        {/* レイヤ 1: 写真 (温かいオペレーター後ろ姿) */}
         <Image
-          src="/images/sample-a/sa-hero-leaf-bg.webp"
+          src="/images/photos/sample-a/operator-warm.webp"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-90"
+          className="object-cover"
         />
+        {/* レイヤ 2: クリーム色のソフトベール (写真を主張させすぎない) */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(circle at 20% 10%, rgba(149,213,178,0.45), transparent 55%), radial-gradient(circle at 80% 90%, rgba(45,106,79,0.3), transparent 60%), linear-gradient(180deg, rgba(250,243,224,0.85), rgba(242,234,211,0.92))",
+              "radial-gradient(circle at 20% 10%, rgba(149,213,178,0.35), transparent 55%), radial-gradient(circle at 80% 90%, rgba(45,106,79,0.20), transparent 60%), linear-gradient(180deg, rgba(250,243,224,0.78), rgba(242,234,211,0.88))",
           }}
-        />
-        <Image
-          src="/images/sample-a/sa-hero-leaf-foreground.png"
-          alt=""
-          fill
-          sizes="100vw"
-          className="pointer-events-none object-cover opacity-40 mix-blend-multiply"
-          aria-hidden
         />
         <DriftingLeaves />
       </div>

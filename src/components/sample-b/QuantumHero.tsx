@@ -12,19 +12,21 @@ export function QuantumHero() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
+        {/* レイヤ 1: シネマティックなモニター写真 */}
         <Image
-          src={reduce ? "/images/sample-b/sb-hero-particles-still.png" : "/images/sample-b/sb-hero-grid-bg.webp"}
+          src="/images/photos/sample-b/hero-monitors.webp"
           alt=""
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
+        {/* レイヤ 2: ダークなオーバーレイ */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at top, rgba(27,39,64,0.55) 0%, rgba(10,14,26,0.85) 60%)",
+              "radial-gradient(ellipse at top, rgba(27,39,64,0.60) 0%, rgba(10,14,26,0.92) 60%)",
           }}
         />
         {!reduce && <GridCanvas />}

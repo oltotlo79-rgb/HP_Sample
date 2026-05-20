@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { QuantumHero } from "@/components/sample-b/QuantumHero";
 import { BentoTile } from "@/components/sample-b/BentoTile";
 import { FlipGateway } from "@/components/sample-b/FlipGateway";
@@ -98,6 +99,41 @@ function Architecture() {
           </p>
         </div>
         <ArchitectureNetwork />
+
+        {/* 24/7 オペレーションセンターの写真 */}
+        <div className="mt-12 grid gap-6 md:grid-cols-12">
+          <div
+            className="relative aspect-[16/10] overflow-hidden rounded-3xl md:col-span-7"
+            style={{ border: "1px solid rgba(94,234,212,0.18)" }}
+          >
+            <Image
+              src="/images/photos/sample-b/control-room.webp"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 55vw, 100vw"
+              className="object-cover"
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(10,14,26,0) 50%, rgba(10,14,26,0.65) 100%)",
+              }}
+            />
+            <p className="absolute bottom-5 left-6 font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
+              ▌ ops · 24/7
+            </p>
+          </div>
+          <div className="md:col-span-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
+              ▌ note
+            </p>
+            <p className="mt-4 font-serif-jp text-base leading-loose text-[var(--b-muted)] md:text-lg">
+              インバウンド／アウトバウンド両対応・10 年以上の運用実績を活かし、
+              席数規模・PBX 構成・配置形態にかかわらず動作する設計です。
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -146,6 +182,11 @@ function Strengths() {
               index={i}
               accent={i === 0 ? "mint" : i === 1 ? "aqua" : "violet"}
               span={i === 1 ? "wide" : "default"}
+              imageSrc={
+                i === 1
+                  ? "/images/photos/sample-b/bento-realtime.webp"
+                  : undefined
+              }
             />
           ))}
           <BentoTile
@@ -154,6 +195,7 @@ function Strengths() {
             body="クラウド (AWS / SoftBank)・オンプレ・VPN／専用線・PBX 非依存。お客様の環境にフィットします。"
             index={3}
             accent="aqua"
+            imageSrc="/images/photos/sample-b/bento-call-detail.webp"
           >
             <CoverageOrb />
           </BentoTile>

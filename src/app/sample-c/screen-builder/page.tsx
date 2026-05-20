@@ -66,6 +66,7 @@ export default function SampleCScreenBuilder() {
         no="01"
         title={screenBuilder.methods[0].title}
         subtitle={screenBuilder.methods[0].desc}
+        plateSrc="/images/photos/sample-c/chapter-hands.webp"
       >
         <Spread
           left={
@@ -118,6 +119,7 @@ export default function SampleCScreenBuilder() {
         no="02"
         title={screenBuilder.methods[1].title}
         subtitle={screenBuilder.methods[1].desc}
+        plateSrc="/images/photos/sample-c/chapter-template.webp"
       >
         <div className="grid grid-cols-2 gap-px md:grid-cols-4" style={{ background: "var(--c-rule)" }}>
           {screenBuilder.methods[1].templates?.map((t, i) => (
@@ -142,6 +144,7 @@ export default function SampleCScreenBuilder() {
         no="03"
         title={screenBuilder.methods[2].title}
         subtitle={screenBuilder.methods[2].desc}
+        plateSrc="/images/photos/sample-c/chapter-excel.webp"
       >
         <Spread
           left={

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { videoBoard } from "@/content/product";
 
@@ -38,39 +39,23 @@ export function VideoBoard() {
           className="relative aspect-video w-full overflow-hidden border bg-[#2F5233]"
           style={{ borderColor: "var(--c-rule)" }}
         >
-          {/* 額縁内のシーン (大判のシダ + 操作画面のシルエット) */}
-          <svg viewBox="0 0 800 450" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="vc-bg" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#2F5233" />
-                <stop offset="100%" stopColor="#1B1F1A" />
-              </linearGradient>
-            </defs>
-            <rect width="800" height="450" fill="url(#vc-bg)" />
-            {/* シダのシルエット */}
-            <g opacity="0.32" stroke="#F7F4EC" strokeWidth="1" fill="none">
-              <path d="M 600 50 Q 600 220 660 420" />
-              {Array.from({ length: 9 }).map((_, i) => {
-                const y = 80 + i * 38;
-                const w = 90 - i * 4;
-                return (
-                  <g key={i}>
-                    <path d={`M 600 ${y} Q ${600 - w * 0.5} ${y - 8} ${600 - w} ${y + 4}`} />
-                    <path d={`M 600 ${y} Q ${600 + w * 0.5} ${y - 6} ${600 + w} ${y + 4}`} />
-                  </g>
-                );
-              })}
-            </g>
-            {/* UIモック (枠線) */}
-            <g stroke="#F7F4EC" strokeWidth="0.6" opacity="0.5" fill="none">
-              <rect x="80" y="100" width="320" height="240" />
-              <rect x="100" y="120" width="120" height="20" />
-              <rect x="100" y="160" width="280" height="14" />
-              <rect x="100" y="184" width="280" height="14" />
-              <rect x="100" y="208" width="280" height="14" />
-              <rect x="100" y="240" width="60" height="40" fill="#C9A227" opacity="0.5" />
-            </g>
-          </svg>
+          {/* 動画サムネ (誌面トーンの編集写真) */}
+          <Image
+            src="/images/photos/sample-c/video-still.webp"
+            alt={videoBoard.poster}
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+          />
+          {/* 暗トーンのオーバーレイ (キャプションの可読性) */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(27,31,26,0.20) 0%, rgba(27,31,26,0.55) 100%)",
+            }}
+          />
 
           {/* 再生ボタン */}
           <button

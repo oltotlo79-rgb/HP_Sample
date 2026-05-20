@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { videoBoard } from "@/content/product";
 
@@ -28,15 +29,25 @@ export function VideoBoard() {
         transition={{ duration: 0.8 }}
         className="md:col-span-8"
       >
-        <div
-          className="relative aspect-video w-full overflow-hidden rounded-3xl border border-[var(--b-mint)]/30 bg-[var(--b-deep)]"
-          style={{
-            background:
-              "radial-gradient(circle at 30% 30%, rgba(94,234,212,0.18), #0A0E1A 70%)",
-          }}
-        >
+        <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-[var(--b-mint)]/30 bg-[var(--b-deep)]">
+          {/* 動画サムネ写真 */}
+          <Image
+            src="/images/photos/sample-b/video-still.webp"
+            alt={videoBoard.poster}
+            fill
+            sizes="(min-width: 768px) 70vw, 100vw"
+            className="object-cover"
+          />
+          {/* オーバーレイ */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(10,14,26,0.35) 0%, rgba(10,14,26,0.65) 100%)",
+            }}
+          />
           {/* スキャンライン */}
-          <svg viewBox="0 0 800 450" className="absolute inset-0 h-full w-full opacity-30">
+          <svg viewBox="0 0 800 450" className="absolute inset-0 h-full w-full opacity-20">
             {Array.from({ length: 30 }).map((_, i) => (
               <line
                 key={i}

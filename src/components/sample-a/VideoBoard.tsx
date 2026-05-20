@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { videoBoard } from "@/content/product";
 
@@ -30,24 +31,16 @@ export function VideoBoard() {
       >
         <div
           className="relative aspect-video w-full overflow-hidden rounded-3xl"
-          style={{
-            background:
-              "radial-gradient(circle at 30% 30%, #95D5B2, #1B4332 70%)",
-            border: "1px solid rgba(27,67,50,0.18)",
-          }}
+          style={{ border: "1px solid rgba(27,67,50,0.18)" }}
         >
-          {/* 葉のレイヤ */}
-          <svg viewBox="0 0 800 450" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice">
-            <path
-              d="M -40 360 Q 200 280 400 340 Q 600 400 840 320"
-              stroke="#FAF3E0"
-              strokeWidth="2"
-              fill="none"
-              opacity="0.18"
-            />
-            <ellipse cx="120" cy="100" rx="60" ry="22" fill="#FAF3E0" opacity="0.12" transform="rotate(-15 120 100)" />
-            <ellipse cx="700" cy="380" rx="70" ry="26" fill="#FAF3E0" opacity="0.12" transform="rotate(20 700 380)" />
-          </svg>
+          {/* 動画サムネ写真 */}
+          <Image
+            src="/images/photos/sample-a/video-still.webp"
+            alt={videoBoard.poster}
+            fill
+            sizes="(min-width: 768px) 70vw, 100vw"
+            className="object-cover"
+          />
           {/* 再生ボタン */}
           <button
             type="button"
