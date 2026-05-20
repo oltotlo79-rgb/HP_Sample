@@ -41,7 +41,7 @@ function ProductLead() {
       <DataStream className="absolute inset-x-0 top-0 -z-0 h-32 opacity-50" />
       <div className="relative mx-auto max-w-7xl">
         <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-          ▌ 01 · overview
+          ▌ overview
         </p>
         <h2 className="mt-6 font-serif-jp text-3xl leading-tight text-[var(--b-text)] md:text-5xl">
           {product.productLead}
@@ -70,7 +70,7 @@ function Video() {
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
         <p className="mb-12 font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-          ▌ 02 · media
+          ▌ media
         </p>
         <VideoBoard />
       </div>
@@ -85,7 +85,7 @@ function Architecture() {
         <div className="mb-12 grid gap-8 md:grid-cols-12">
           <div className="md:col-span-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-              ▌ 03 · system architecture
+              ▌ architecture
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl text-[var(--b-text)] md:text-5xl">
               4 ノードの<br />ネットワーク。
@@ -110,7 +110,7 @@ function BuildSelf() {
         <div className="mb-12 grid gap-8 md:grid-cols-12">
           <div className="md:col-span-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-              ▌ 04 · build by yourself
+              ▌ build by yourself
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl leading-snug text-[var(--b-text)] md:text-5xl">
               {product.buildSelfHeadline}
@@ -131,7 +131,7 @@ function Strengths() {
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
         <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-          ▌ 05 · strengths
+          ▌ strengths
         </p>
         <h2 className="mt-4 font-serif-jp text-3xl text-[var(--b-text)] md:text-5xl">
           3 つの強み・量子のグリッド
@@ -170,7 +170,7 @@ function TriggerAction() {
         <div className="mb-12 grid gap-8 md:grid-cols-12">
           <div className="md:col-span-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-              ▌ 06 · trigger × action
+              ▌ trigger × action
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl text-[var(--b-text)] md:text-5xl">
               組み合わせる<br />量子ロジック。
@@ -193,7 +193,7 @@ function ChannelsAndCti() {
       <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-2">
         <GlassCard className="p-8 md:p-10">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-            ▌ 07 · cti partners
+            ▌ cti partners
           </p>
           <h3 className="mt-4 font-serif-jp text-2xl text-[var(--b-text)] md:text-4xl">
             PBX 非依存の<br />接続実績。
@@ -237,7 +237,7 @@ function ChannelsAndCti() {
 
         <GlassCard className="p-8 md:p-10">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-            ▌ 08 · optional modules
+            ▌ optional modules
           </p>
           <h3 className="mt-4 font-serif-jp text-2xl text-[var(--b-text)] md:text-4xl">
             必要な機能を、<br />必要な時だけ。
@@ -263,7 +263,7 @@ function Editions() {
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
         <p className="mb-12 font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-          ▌ 09 · editions
+          ▌ editions
         </p>
         <EditionsBoard />
       </div>
@@ -276,7 +276,7 @@ function TemplateSteps() {
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
         <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-          ▌ 10 · template · 3 steps
+          ▌ template · 3 steps
         </p>
         <h2 className="mt-4 font-serif-jp text-3xl text-[var(--b-text)] md:text-5xl">
           3 ステップで、<br />自分仕様の画面。
@@ -345,7 +345,7 @@ function Gateways() {
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
         <p className="mb-12 font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--b-mint)]">
-          ▌ 11 · detail pages
+          ▌ more
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           <FlipGateway

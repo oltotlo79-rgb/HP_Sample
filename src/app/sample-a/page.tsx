@@ -51,11 +51,11 @@ function Intro() {
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-12">
         <div className="md:col-span-3">
-          <p className="font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-            01 ── Overview
+          <p className="font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+            Overview
           </p>
           <p
-            className="mt-6 font-serif-jp text-2xl leading-tight text-[var(--a-forest)]"
+            className="mt-6 hidden font-serif-jp text-2xl leading-tight text-[var(--a-forest)] md:block"
             style={{ writingMode: "vertical-rl" }}
           >
             業務の輪郭を、葉脈のようにたどる。
@@ -88,8 +88,8 @@ function VideoSection() {
   return (
     <section className="relative px-6 py-24 md:px-12 md:py-32" style={{ background: "var(--a-mist)" }}>
       <div className="mx-auto max-w-7xl">
-        <p className="mb-12 font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-          02 ── Video
+        <p className="mb-12 font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+          Video
         </p>
         <VideoBoard />
       </div>
@@ -101,12 +101,12 @@ function ArchitectureSection() {
   return (
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-16 flex items-baseline gap-6">
-          <p className="font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-            03 ── Architecture
+        <div className="mb-12 flex items-baseline gap-6 md:mb-16">
+          <p className="font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+            Architecture
           </p>
           <span className="hidden text-xs text-[var(--a-ink)]/55 md:inline">
-            fig.01
+            fig. 01
           </span>
         </div>
         <ArchitectureForest />
@@ -145,8 +145,8 @@ function BuildSelfSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid items-end gap-8 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-              04 ── Build by Yourself
+            <p className="font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+              Build by Yourself
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl leading-snug text-[var(--a-forest)] md:text-5xl">
               {product.buildSelfHeadline}
@@ -168,8 +168,8 @@ function StrengthsSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 flex items-end justify-between gap-6">
           <div>
-            <p className="font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-              05 ── Strengths
+            <p className="font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+              Strengths
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl text-[var(--a-forest)] md:text-5xl">
               3 つの強み
@@ -195,8 +195,8 @@ function TriggerActionSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid items-end gap-8 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-              06 ── No-Code · Trigger × Action
+            <p className="font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+              Trigger × Action
             </p>
             <h2 className="mt-4 font-serif-jp text-3xl leading-snug text-[var(--a-forest)] md:text-5xl">
               組み合わせるだけで、<br />業務ロジック。
@@ -217,8 +217,8 @@ function ChannelsAndCtiSection() {
   return (
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <p className="mb-12 font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-          07 ── Channels & CTI
+        <p className="mb-12 font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+          Channels & CTI
         </p>
         <div className="grid gap-12 md:grid-cols-12">
           <article className="md:col-span-6">
@@ -296,8 +296,8 @@ function EditionsSection() {
       style={{ background: "var(--a-mist)" }}
     >
       <div className="mx-auto max-w-7xl">
-        <p className="mb-12 font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-          08 ── Editions
+        <p className="mb-12 font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+          Editions
         </p>
         <EditionsBoard />
       </div>
@@ -309,8 +309,8 @@ function TemplateStepsSection() {
   return (
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <p className="font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-          09 ── Template · 3 Steps
+        <p className="font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+          Template · 3 Steps
         </p>
         <h2 className="mt-4 font-serif-jp text-3xl text-[var(--a-forest)] md:text-5xl">
           たった 3 ステップで、<br />自分仕様の画面を。
@@ -388,8 +388,8 @@ function GatewaySection() {
   return (
     <section className="relative px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <p className="mb-12 font-fraunces text-sm uppercase tracking-[0.35em] text-[var(--a-moss)]">
-          10 ── Detail Pages
+        <p className="mb-12 font-fraunces text-xs uppercase tracking-[0.4em] text-[var(--a-moss)]">
+          More
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           <GatewayCard

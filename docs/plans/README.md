@@ -9,6 +9,7 @@
 | [sample-c-editorial-botanical.md](./sample-c-editorial-botanical.md) | C | Editorial Botanical (エディトリアル・ミニマル・タイポ駆動) | `#2F5233` / `#F7F4EC` / `#C9A227` |
 | [codex-image-generation.md](./codex-image-generation.md) | (全) | codex に直接読ませる一括画像生成指示書 | — |
 | [sa-architecture-images.md](./sa-architecture-images.md) | A の §03 | Architecture セクションのメインイラストを画像に差し替える詳細指示書 | — |
+| [realistic-photos.md](./realistic-photos.md) | 全 | 各サンプルのセクションに使うリアル写真風画像の詳細指示書 | — |
 
 ---
 
