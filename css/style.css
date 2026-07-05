@@ -645,6 +645,57 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 }
 
 
+/* ===== 5. guide 固有 ===== */
+
+/* 小型ヒーローの横書きタイトル（.v-title を使わない裁量デザイン） */
+.hero--sub .hero__inner .hero__title {
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+}
+
+/* ステップ番号（明朝の漢数字を大きくあしらう） */
+.step-num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(2.75rem, 7vw, 4.25rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--c-pine);
+  margin-bottom: 0.75rem;
+}
+
+/* 最初の一鉢のおすすめリスト */
+.guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+.guide-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+.guide-list li::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.85em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--c-moss);
+  border-radius: 50%;
+}
+.guide-list strong {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+
 /* ===== ブレークポイント ===== */
 
 /* タブレット: 余白縮小 */
