@@ -1193,3 +1193,63 @@ html.js-enabled .season__panel:not([hidden]) {
   .season__tab,
   .season__tab::after { transition: none; }
 }
+
+
+/* =========================================================
+   10. culture 固有（歴史・文化の縦タイムライン）
+   左に細い縦罫を通し、明朝の時代ラベル + 本文を積む年表。
+   角丸カード・影・装飾アイコンは用いず、罫と苔色ノードのみの
+   編集的あしらい。各項目は共通の .reveal で順に立ち上がる。
+   ========================================================= */
+.timeline__lead {
+  max-width: var(--width-text);
+  margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+.timeline {
+  position: relative;
+  max-width: var(--width-text);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* 左の細い縦罫（ノード中心を貫く） */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: 0.34rem;
+  width: 1px;
+  background: rgba(38, 34, 28, 0.18);
+}
+.timeline__item {
+  position: relative;
+  padding-left: 2.4rem;
+  padding-bottom: clamp(2rem, 5vw, 3.25rem);
+}
+.timeline__item:last-child { padding-bottom: 0; }
+/* 罫上に載る苔色のノード（.dot-list と同系のあしらい） */
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.55em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--c-moss);
+}
+.timeline__era {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2.6vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  color: var(--c-pine);
+  margin-bottom: 0.55rem;
+}
+.timeline__body {
+  font-size: 0.93rem;
+  line-height: 1.95;
+}
