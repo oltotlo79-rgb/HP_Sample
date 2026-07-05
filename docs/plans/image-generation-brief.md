@@ -355,13 +355,14 @@
 - Negative:
   > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, illustration, painting, CGI look
 
-### 27b. season-summer.webp
+### 27b. season-summer.webp 【改訂版 — 再生成推奨(任意)】
 - 保存先: `assets/images/season-summer.webp`
 - 使用箇所: `care.html` 四季の作業カレンダー・夏タブ(タブパネル内画像)
 - アスペクト比 / 解像度: 4:3 / 1200×900px、WebP 品質80
+- 改訂理由: 初版生成では夏だけ常緑の松となり、春(芽吹き)→秋(紅葉)→冬(寒樹)がもみじ系で通る「一本の樹の物語」が夏で途切れた。**もみじ(雑木)の深緑**として再生成すると四季の連続性が出る(現状でも許容範囲のため任意)。
 - 表示上の注意: 27a〜27d と構図・距離感を揃える(同じ画面占有率・ほぼ中央・同じカメラ高さ)。夏は木漏れ日と葉水で涼しげに。
 - Prompt:
-  > A single bonsai on a wooden shelf in summer, deep lush green foliage misted with fine water droplets (leaf misting), dappled sunlight filtering through leaves onto the shelf, cool refreshing shaded summer atmosphere, consistent centered framing with the tree filling a similar portion of the frame, plain softly blurred background, shallow depth of field, photorealistic, professional photography, muted earthy color palette (cream #F6F3EC, deep pine green #2E4B3C, dark brown #4A3728), Japanese aesthetic, high detail
+  > A single Japanese maple (momiji) bonsai on a wooden shelf in summer, deep lush green palmate leaves misted with fine water droplets (leaf misting), dappled sunlight filtering through leaves onto the shelf, cool refreshing shaded summer atmosphere, consistent centered framing with the tree filling a similar portion of the frame, plain softly blurred background, shallow depth of field, photorealistic, professional photography, muted earthy color palette (cream #F6F3EC, deep pine green #2E4B3C, dark brown #4A3728), Japanese aesthetic, high detail
 - Negative:
   > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, illustration, painting, CGI look
 
