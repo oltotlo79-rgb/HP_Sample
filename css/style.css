@@ -58,6 +58,13 @@ a { color: inherit; text-decoration: none; }
 .site-header .site-header__links.is-open :focus-visible {
   outline-color: var(--c-ink);
 }
+/* ドロワー展開中の×ボタン（main.js は aria-expanded を設定する）も墨色に */
+.nav-toggle[aria-expanded="true"] {
+  color: var(--c-ink);
+}
+.site-header .nav-toggle[aria-expanded="true"]:focus-visible {
+  outline-color: var(--c-ink);
+}
 
 
 /* ===== 2. 共通コンポーネント ===== */
@@ -99,7 +106,7 @@ a { color: inherit; text-decoration: none; }
 
 /* 【契約】ヒーロー（写真背景）を持たないページ（404 等）では、
    透明ヘッダーの白文字が生成り背景に載って読めなくなるため、
-   必ず `.site-header site-header--solid` として使用すること。
+   必ず `class="site-header site-header--solid"` として使用すること。
    初期状態から .is-scrolled と同等の見た目（生成り背景 + 墨色文字）になる。 */
 .site-header--solid {
   color: var(--c-ink);
@@ -159,8 +166,8 @@ a { color: inherit; text-decoration: none; }
 }
 .nav-toggle span:nth-child(1) { top: 0.85rem; }
 .nav-toggle span:nth-child(2) { top: 1.35rem; }
-.nav-toggle.is-open span:nth-child(1) { top: 1.1rem; transform: translateX(-50%) rotate(45deg); }
-.nav-toggle.is-open span:nth-child(2) { top: 1.1rem; transform: translateX(-50%) rotate(-45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 1.1rem; transform: translateX(-50%) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { top: 1.1rem; transform: translateX(-50%) rotate(-45deg); }
 
 /* --- ボタン --- */
 .btn {
