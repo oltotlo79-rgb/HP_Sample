@@ -225,6 +225,9 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid currentColor;
   font-size: 0.82rem;
   letter-spacing: 0.12em;
+  /* .btn 基底の color: var(--c-ink) を打ち消してヘッダーの文字色に追従させる
+     （透明ヘッダー=白 / is-scrolled・--solid=墨。暗いヒーロー上での不可視化防止） */
+  color: inherit;
 }
 /* 透明ヘッダー時（白文字）: ホバーで白地・墨文字 */
 .btn--bonlog-nav:hover {
@@ -1228,6 +1231,14 @@ html.js-enabled .season__panel:not([hidden]) {
   padding-bottom: clamp(2rem, 5vw, 3.25rem);
 }
 .timeline__item:last-child { padding-bottom: 0; }
+/* 複数項目が同時に視界へ入っても順次立ち上がるよう、80ms 刻みの遅延を付与
+   （transition-delay は .reveal の transition が有効なときのみ意味を持ち、
+   reduced-motion では transition ごと無効化されるため配慮不要） */
+.timeline__item:nth-child(2) { transition-delay: 0.08s; }
+.timeline__item:nth-child(3) { transition-delay: 0.16s; }
+.timeline__item:nth-child(4) { transition-delay: 0.24s; }
+.timeline__item:nth-child(5) { transition-delay: 0.32s; }
+.timeline__item:nth-child(6) { transition-delay: 0.4s; }
 /* 罫上に載る苔色のノード（.dot-list と同系のあしらい） */
 .timeline__item::before {
   content: "";
