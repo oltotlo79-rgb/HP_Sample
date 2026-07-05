@@ -140,7 +140,23 @@ a { color: inherit; text-decoration: none; }
   padding: 0.25rem 0;
   transition: opacity 0.3s ease;
 }
-.site-header__links a:hover { opacity: 0.6; }
+/* .btn（BON-LOG ボタン）以外のナビリンクに下線スライドを添える */
+.site-header__links a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.site-header__links a:not(.btn):hover::after,
+.site-header__links a:not(.btn):focus-visible::after,
+.site-header__links a[aria-current="page"]::after { transform: scaleX(1); }
+.site-header__links a:not(.btn):hover { opacity: 0.85; }
 
 /* ハンバーガー（モバイルのみ表示） */
 .nav-toggle {
@@ -291,10 +307,55 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html.js-enabled .reveal { opacity: 1; transform: none; transition: none; }
   * { animation: none !important; scroll-behavior: auto !important; }
+  /* モーション v2 の演出も全て初期状態＝可視・素の姿に戻す（固着回避） */
+  html.js-enabled .opening { display: none; }
+  html.js-enabled .hero__kenburns { transform: none; }
+  html.js-enabled .js-chars .char { opacity: 1; transform: none; transition: none; }
+  html.js-enabled .hero__sub--delayed,
+  html.js-enabled .hero__scroll--delayed { opacity: 1; transform: none; transition: none; }
+  html.js-enabled .reveal-mask { transition: none; }
+  html.js-enabled .reveal-mask img { clip-path: none; transform: none; transition: none; }
 }
 
 /* 縦書きタイトル */
 .v-title { writing-mode: vertical-rl; letter-spacing: 0.35em; font-family: var(--font-serif); }
+
+/* --- 苔色ドットの箇条書き（.guide-list / .bonlog__features 共通の実体） --- */
+.dot-list,
+.guide-list,
+.bonlog__features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0 0 1.75rem;
+}
+.dot-list li,
+.guide-list li,
+.bonlog__features li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.93rem;
+  line-height: 1.9;
+}
+.dot-list li::before,
+.guide-list li::before,
+.bonlog__features li::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.82em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--c-moss);
+  border-radius: 50%;
+}
+.dot-list strong,
+.guide-list strong,
+.bonlog__features strong {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
 
 
 /* ===== 3. セクションレイアウト ===== */
@@ -412,6 +473,13 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   min-height: 60vh;
   min-height: 60svh;
 }
+/* サブページ共通の横書きヒーロータイトル（.v-title を使わない裁量デザイン）。
+   guide 以外の下層ページでも共通利用するためコンポーネント層へ配置。 */
+.hero__title {
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+}
 
 /* --- 全画面写真の章セクション --- */
 /* スタッキングは .hero と同じ契約（isolate + img:0 / scrim:1 / 本文:2） */
@@ -512,9 +580,11 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 1.2s ease;
 }
-.card:hover .card__media img { transform: scale(1.04); }
+/* ゆったりズーム。reveal-mask（is-visible 後 img:scale(1)）より高い詳細度で勝たせる */
+.card:hover .card__media img { transform: scale(1.05); }
+html.js-enabled .card:hover .card__media img { transform: scale(1.05); }
 .card__body {
   padding: 1.5rem 1.5rem 1.75rem;
   display: flex;
@@ -522,12 +592,29 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   gap: 0.75rem;
 }
 .card__title {
+  position: relative;
+  display: inline-block;
   font-family: var(--font-serif);
   font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   margin: 0;
 }
+/* タイトル下線が左から伸びる */
+.card__title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 1px;
+  background: var(--c-pine);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card:hover .card__title::after,
+.card:focus-within .card__title::after { transform: scaleX(1); }
 .card__lead {
   font-size: 0.88rem;
   line-height: 1.9;
@@ -609,28 +696,7 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   margin: 0 0 1.75rem;
 }
 .bonlog__body { margin: 0 0 1.75rem; }
-.bonlog__features {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  margin: 0 0 1.75rem;
-}
-.bonlog__features li {
-  position: relative;
-  padding-left: 1.5rem;
-  font-size: 0.92rem;
-  line-height: 1.8;
-}
-.bonlog__features li::before {
-  content: "";
-  position: absolute;
-  left: 0.1rem;
-  top: 0.8em;
-  width: 0.4rem;
-  height: 0.4rem;
-  background: var(--c-moss);
-  border-radius: 50%;
-}
+/* .bonlog__features のドット・余白は共通の .dot-list 実体（セクション2）に集約 */
 .bonlog__note {
   font-size: 0.85rem;
   color: var(--c-brown);
@@ -647,13 +713,6 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 
 /* ===== 5. guide 固有 ===== */
 
-/* 小型ヒーローの横書きタイトル（.v-title を使わない裁量デザイン） */
-.hero--sub .hero__inner .hero__title {
-  font-size: clamp(2rem, 6vw, 3.25rem);
-  line-height: 1.5;
-  letter-spacing: 0.14em;
-}
-
 /* ステップ番号（明朝の漢数字を大きくあしらう） */
 .step-num {
   display: block;
@@ -666,33 +725,222 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   margin-bottom: 0.75rem;
 }
 
-/* 最初の一鉢のおすすめリスト */
-.guide-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin: 0 0 1.5rem;
+/* 最初の一鉢のおすすめリスト（ドット・余白・strong は共通の .dot-list 実体に集約） */
+
+
+/* =========================================================
+   6. モーションデザイン v2（リッチ演出）
+   すべて transform / opacity / clip-path ベース。
+   prefers-reduced-motion: reduce では上部の演出ブロックで全て無効化。
+   ========================================================= */
+
+/* --- 6-1. オープニング（初回のみ・index） --- */
+/* JS無効時は表示しない（下の js-enabled 配下でのみ表示） */
+.opening { display: none; }
+html.js-enabled .opening {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;                 /* ヘッダー(100)・章ナビ(90)より上 */
+  background: transparent;       /* 夜色は上下2枚の幕（::before/::after）が担う */
+  overflow: hidden;
+  /* CSS単体フェイルセーフ: 万一 JS が停止しても 4s 後に必ず塞がなくする */
+  animation: opening-failsafe 0s linear 4s forwards;
 }
-.guide-list li {
-  position: relative;
-  padding-left: 1.5rem;
-  font-size: 0.95rem;
-  line-height: 1.9;
-}
-.guide-list li::before {
+/* 上下2枚の幕（夜色）。中央の合わせ目は 1px 重ねて隙間を防ぐ */
+html.js-enabled .opening::before,
+html.js-enabled .opening::after {
   content: "";
   position: absolute;
-  left: 0.1rem;
-  top: 0.85em;
-  width: 0.4rem;
-  height: 0.4rem;
-  background: var(--c-moss);
-  border-radius: 50%;
+  left: 0;
+  width: 100%;
+  height: calc(50% + 1px);
+  background: var(--c-night);
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
 }
-.guide-list strong {
+html.js-enabled .opening::before { top: 0; }
+html.js-enabled .opening::after { bottom: 0; }
+/* タイトルが墨のように滲んで出現（blur+opacity, 約1.1s） */
+html.js-enabled .opening__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  color: #fff;
   font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 6vw, 3.1rem);
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;          /* letter-spacing 由来の右余白を視覚的に中央補正 */
+  white-space: nowrap;
+  filter: blur(10px);
+  opacity: 0;
+  animation: opening-ink 1.1s ease forwards;
+}
+@keyframes opening-ink {
+  from { filter: blur(10px); opacity: 0; }
+  to   { filter: blur(0);    opacity: 1; }
+}
+/* 幕が上下に割れて開く + タイトルは消える（JS が is-opening-out を付与） */
+html.js-enabled .opening.is-opening-out::before { transform: translateY(-100%); }
+html.js-enabled .opening.is-opening-out::after  { transform: translateY(100%); }
+html.js-enabled .opening.is-opening-out .opening__title {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+@keyframes opening-failsafe {
+  to { visibility: hidden; pointer-events: none; }
+}
+
+/* --- 6-2. ヒーロー Ken Burns（ラッパーに適用。img はパララックス専用） --- */
+/* スタッキング契約: 背景の z:0 をラッパーへ移設。img はラッパー内で自由に translate 可 */
+.hero__kenburns {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+html.js-enabled .hero__kenburns { transform: scale(1.08); }
+html.js-enabled .hero.is-hero-active .hero__kenburns {
+  animation: ken-burns 7s cubic-bezier(0.16, 0.62, 0.28, 1) forwards;
+}
+@keyframes ken-burns {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+
+/* --- 6-3. 文字の一字立ち上がり（.js-chars → span.char） --- */
+html.js-enabled .js-chars .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+html.js-enabled .js-chars.is-visible .char { opacity: 1; transform: none; }
+
+/* サブコピー・スクロール誘導は文字より遅れてフェード（ヒーロー開幕時） */
+html.js-enabled .hero__sub--delayed,
+html.js-enabled .hero__scroll--delayed {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+html.js-enabled .hero.is-hero-active .hero__sub--delayed {
+  opacity: 1;
+  transition-delay: 0.9s;
+}
+html.js-enabled .hero.is-hero-active .hero__scroll--delayed {
+  opacity: 0.85;                /* .hero__scroll の既定不透明度に合わせる */
+  transition-delay: 1.2s;
+}
+
+/* --- 6-4. 写真のマスクリビール（.split__media / .card__media 共通） --- */
+/* 【重要】clip-path は内側の img に適用する。figure(.reveal-mask) 自体を clip すると
+   可視面積が 0 になり、それを監視している IntersectionObserver が永久に発火せず
+   is-visible が付かない＝リビールが開かないデッドロックになる。figure は overflow:hidden
+   のみで無クリップに保ち、監視トリガーとして機能させる。 */
+html.js-enabled .reveal-mask { overflow: hidden; }
+html.js-enabled .reveal-mask img {
+  clip-path: inset(0 100% 0 0);
+  transform: scale(1.06);
+  transition: clip-path 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.js-enabled .reveal-mask.is-visible img { clip-path: inset(0); transform: scale(1); }
+
+/* --- 6-5. 章インジケータ（index。1024px以下は非表示） --- */
+/* mix-blend-mode: difference により、明色/暗色どちらのセクション上でも視認できる */
+.chapter-nav {
+  position: fixed;
+  top: 50%;
+  right: clamp(1rem, 2.6vw, 2.25rem);
+  z-index: 90;
+  transform: translateY(-50%);
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.chapter-nav ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.15rem;
+}
+.chapter-nav ul::before {         /* 細い縦ライン */
+  content: "";
+  position: absolute;
+  top: -0.4rem;
+  bottom: -0.4rem;
+  right: 3px;                     /* ドット中心に合わせる（dot幅7px/2 - 0.5px 弱） */
+  width: 1px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.chapter-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+}
+.chapter-nav a::before {          /* ラベル（ホバー/現在時に表示） */
+  content: attr(data-label);
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(0.5rem);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.chapter-nav__dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  transform: scale(0.78);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.chapter-nav a:hover .chapter-nav__dot,
+.chapter-nav a:focus-visible .chapter-nav__dot,
+.chapter-nav a.is-current .chapter-nav__dot {
+  opacity: 1;
+  transform: scale(1.45);
+}
+.chapter-nav a:hover::before,
+.chapter-nav a:focus-visible::before,
+.chapter-nav a.is-current::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- 6-6. 舞い散る紅葉キャンバス（第二章・スクリムz:1と本文z:2の間） --- */
+.leaves-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* --- 6-7. 和紙テクスチャ・オーバーレイ --- */
+/* 生成画像 texture-washi-light.webp が未用意（404）の間は不透明度0.04 かつ
+   pointer-events:none のため無害（見た目に影響しない）。
+   生成画像が用意できない場合は、下記の SVG feTurbulence data URI で代替可:
+   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat; */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2000;                 /* 本文の上・オープニング(3000)の下 */
+  pointer-events: none;
+  background: url('/assets/images/texture-washi-light.webp') repeat;
+  opacity: 0.04;
+  mix-blend-mode: multiply;      /* 低不透明度のため全面掛けでも違和感が出にくい */
 }
 
 
@@ -704,6 +952,8 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
     --space-section: clamp(4rem, 9vw, 7rem);
   }
   .split { gap: clamp(1.75rem, 4vw, 3rem); }
+  /* 章インジケータは 1024px 以下で非表示 */
+  .chapter-nav { display: none; }
 }
 
 /* モバイル: 1カラム + ハンバーガー */

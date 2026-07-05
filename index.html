@@ -20,6 +20,20 @@
 </head>
 <body>
 
+  <!-- ===== オープニング（初回のみ・JS有効時のみ表示。フェイルセーフで3.5秒後に強制除去） ===== -->
+  <div class="opening" aria-hidden="true"><p class="opening__title">盆栽のあるくらし</p></div>
+
+  <!-- ===== 章インジケータ（.chapter-nav がある時のみ JS が駆動。1024px以下で非表示） ===== -->
+  <nav class="chapter-nav" aria-label="ページ内セクション">
+    <ul>
+      <li><a href="#section-about" data-label="盆栽とは"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-time" data-label="時間"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-nature" data-label="自然"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-form" data-label="かたち"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-bonlog" data-label="BON-LOG"><span class="chapter-nav__dot"></span></a></li>
+    </ul>
+  </nav>
+
   <!-- ===== ヘッダー ===== -->
   <header class="site-header">
     <a class="site-header__logo" href="/">盆栽のあるくらし</a>
@@ -38,18 +52,22 @@
   <main>
 
     <!-- ===== ヒーロー ===== -->
+    <!-- Ken Burns はラッパー(.hero__kenburns)に適用し、パララックスは img 側(data-parallax)に。
+         同一要素に animation と inline transform を混在させない（fill-mode の固着回避）。 -->
     <section class="hero">
-      <img class="hero__bg" src="/assets/images/hero-top.webp" width="2400" height="1350" alt="床の間に置かれた黒松の盆栽" fetchpriority="high" data-parallax>
-      <div class="hero__inner">
-        <h1 class="v-title">小さな鉢の、<br>大きな宇宙。</h1>
-        <p class="hero__sub">掌にのる一鉢に、百年の時間と、四季のめぐりが宿る。</p>
+      <div class="hero__kenburns">
+        <img class="hero__bg" src="/assets/images/hero-top.webp" width="2400" height="1350" alt="床の間に置かれた黒松の盆栽" fetchpriority="high" data-parallax>
       </div>
-      <div class="hero__scroll" aria-hidden="true">Scroll</div>
+      <div class="hero__inner">
+        <h1 class="v-title js-chars">小さな鉢の、<br>大きな宇宙。</h1>
+        <p class="hero__sub hero__sub--delayed">掌にのる一鉢に、百年の時間と、四季のめぐりが宿る。</p>
+      </div>
+      <div class="hero__scroll hero__scroll--delayed" aria-hidden="true">Scroll</div>
     </section>
 
     <!-- ===== 導入 ===== -->
-    <section class="split">
-      <figure class="split__media">
+    <section class="split" id="section-about">
+      <figure class="split__media reveal-mask">
         <img src="/assets/images/intro-hands.webp" width="1600" height="1067" alt="盆栽の枝先を整える手元" loading="lazy">
       </figure>
       <div class="split__body reveal">
@@ -61,11 +79,11 @@
     </section>
 
     <!-- ===== 第一章 時間を育てる ===== -->
-    <section class="chapter chapter--dark">
+    <section class="chapter chapter--dark" id="section-time">
       <img class="chapter__bg" src="/assets/images/chapter-time.webp" width="2400" height="1350" alt="樹皮に歳月を刻んだ古木の幹" loading="lazy" data-parallax>
       <div class="chapter__inner reveal">
         <span class="section-label">一</span>
-        <h2 class="v-title">時間を育てる</h2>
+        <h2 class="v-title js-chars">時間を育てる</h2>
         <div class="chapter__body">
           <p>盆栽の時間は、人の時間よりもずっとゆっくりと流れます。芽を摘み、枝を選び、十年をかけてようやくひとつの枝ぶりが定まります。</p>
           <p>五十年を経た幹は、樹皮に刻まれた深い皺で、静かに歳月を語りはじめます。なかには親から子へ、子から孫へと、世代を超えて受け継がれてゆく樹もあります。急がず、あわてず、ただ時間そのものを育てていく営みです。</p>
@@ -74,11 +92,13 @@
     </section>
 
     <!-- ===== 第二章 自然を写す ===== -->
-    <section class="chapter">
+    <section class="chapter" id="section-nature">
       <img class="chapter__bg" src="/assets/images/chapter-nature.webp" width="2400" height="1350" alt="紅葉した楓の盆栽" loading="lazy" data-parallax>
+      <!-- 舞い散る紅葉パーティクル（スクリム z:1 の上・本文 z:2 の下）。reduced-motion では JS が初期化しない -->
+      <canvas class="leaves-canvas" aria-hidden="true"></canvas>
       <div class="chapter__inner reveal">
         <span class="section-label">二</span>
-        <h2 class="v-title">自然を写す</h2>
+        <h2 class="v-title js-chars">自然を写す</h2>
         <div class="chapter__body">
           <p>芽吹きの淡い緑、夏の深い茂り、秋の紅葉、そして葉を落とした冬の寒樹。ひとつの鉢のなかで、四季がゆっくりとめぐります。</p>
           <p>遠い山並みや水辺の景色を、わずか数十センチのうちに写しとる——盆栽の醍醐味は、この「見立て」の面白さにあります。小さな鉢を眺めるうちに、まなざしはいつしか広大な自然へと運ばれてゆきます。</p>
@@ -87,11 +107,11 @@
     </section>
 
     <!-- ===== 第三章 かたちを見立てる ===== -->
-    <section class="chapter">
+    <section class="chapter" id="section-form">
       <img class="chapter__bg" src="/assets/images/chapter-form.webp" width="2400" height="1350" alt="力強い根張りと幹の曲線をもつ盆栽" loading="lazy" data-parallax>
       <div class="chapter__inner reveal">
         <span class="section-label">三</span>
-        <h2 class="v-title">かたちを見立てる</h2>
+        <h2 class="v-title js-chars">かたちを見立てる</h2>
         <div class="chapter__body">
           <p>幹の描く曲線、大地をつかむ根張り、空へ伸びる枝ぶり。同じように育てても、二つとして同じ姿の樹はありません。</p>
           <p>どの枝を残し、どの芽を摘むのか。その小さな選択の積み重ねに、育て手の美意識がおのずと表れます。盆栽の樹形とは、自然と人との、静かな対話の記録なのです。</p>
@@ -100,7 +120,7 @@
     </section>
 
     <!-- ===== BON-LOG 告知 ===== -->
-    <section class="bonlog">
+    <section class="bonlog" id="section-bonlog">
       <div class="bonlog__inner reveal">
         <div class="bonlog__text">
           <span class="section-label">Community</span>
@@ -129,7 +149,7 @@
         <h2 class="section-title">盆栽を、もっと知る。</h2>
         <div class="card-grid">
           <article class="card">
-            <figure class="card__media">
+            <figure class="card__media reveal-mask">
               <img src="/assets/images/nav-guide.webp" width="1200" height="900" alt="はじめての盆栽と道具" loading="lazy">
             </figure>
             <div class="card__body">
@@ -139,7 +159,7 @@
             </div>
           </article>
           <article class="card">
-            <figure class="card__media">
+            <figure class="card__media reveal-mask">
               <img src="/assets/images/nav-species.webp" width="1200" height="900" alt="さまざまな樹種の盆栽" loading="lazy">
             </figure>
             <div class="card__body">
@@ -149,7 +169,7 @@
             </div>
           </article>
           <article class="card">
-            <figure class="card__media">
+            <figure class="card__media reveal-mask">
               <img src="/assets/images/nav-care.webp" width="1200" height="900" alt="水やりや剪定など日々の手入れ" loading="lazy">
             </figure>
             <div class="card__body">
@@ -159,7 +179,7 @@
             </div>
           </article>
           <article class="card">
-            <figure class="card__media">
+            <figure class="card__media reveal-mask">
               <img src="/assets/images/nav-culture.webp" width="1200" height="900" alt="盆栽の歴史を伝える古い設え" loading="lazy">
             </figure>
             <div class="card__body">
