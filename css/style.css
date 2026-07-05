@@ -307,15 +307,9 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html.js-enabled .reveal { opacity: 1; transform: none; transition: none; }
   * { animation: none !important; scroll-behavior: auto !important; }
-  /* モーション v2 の演出も全て初期状態＝可視・素の姿に戻す（固着回避） */
-  html.js-enabled .opening { display: none; }
-  html.js-enabled .hero__kenburns { transform: none; }
-  html.js-enabled .js-chars .char { opacity: 1; transform: none; transition: none; }
-  html.js-enabled .hero__sub--delayed,
-  html.js-enabled .hero__scroll--delayed { opacity: 1; transform: none; transition: none; }
-  html.js-enabled .reveal-mask { transition: none; }
-  html.js-enabled .reveal-mask img { clip-path: none; transform: none; transition: none; }
 }
+/* 【注意】モーション v2（セクション6）の reduced-motion リセットは、同詳細度の
+   無条件ルール（セクション6）にソース順で負けないよう、ファイル末尾に配置している。 */
 
 /* 縦書きタイトル */
 .v-title { writing-mode: vertical-rl; letter-spacing: 0.35em; font-family: var(--font-serif); }
@@ -837,10 +831,10 @@ html.js-enabled .hero.is-hero-active .hero__scroll--delayed {
 }
 
 /* --- 6-4. 写真のマスクリビール（.split__media / .card__media 共通） --- */
-/* 【重要】clip-path は内側の img に適用する。figure(.reveal-mask) 自体を clip すると
-   可視面積が 0 になり、それを監視している IntersectionObserver が永久に発火せず
-   is-visible が付かない＝リビールが開かないデッドロックになる。figure は overflow:hidden
-   のみで無クリップに保ち、監視トリガーとして機能させる。 */
+/* clip-path は figure(.reveal-mask) ではなく内側の img に掛ける。
+   IntersectionObserver はレイアウトジオメトリで交差判定するため figure に掛けても
+   発火はするが、監視トリガー（figure）とマスク描画対象（img）を分離した方が
+   挙動が明確で、img の scale とマスクを同一要素・同一 transition に揃えられる。 */
 html.js-enabled .reveal-mask { overflow: hidden; }
 html.js-enabled .reveal-mask img {
   clip-path: inset(0 100% 0 0);
@@ -1006,4 +1000,28 @@ body::before {
   .chapter--dark::before {
     background: linear-gradient(rgba(22, 27, 23, 0.55), rgba(22, 27, 23, 0.25));
   }
+}
+
+
+/* =========================================================
+   7. prefers-reduced-motion — モーション v2 の全無効化
+   【重要】このブロックは必ずファイル末尾（セクション6より後）に置くこと。
+   セクション6の無条件ルールと同詳細度のため、ソース順が前だと負けて
+   Ken Burns の scale(1.08) 固着や reveal-mask のアニメ再生が起きる。
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  /* オープニングは表示しない（JS の即時除去に加えた CSS 側の保証） */
+  html.js-enabled .opening { display: none; }
+  /* Ken Burns の初期 scale を解除（* { animation: none } で開始もしないため必須） */
+  html.js-enabled .hero__kenburns { transform: none; }
+  /* 文字立ち上がり・遅延フェードは最初から可視 */
+  html.js-enabled .js-chars .char { opacity: 1; transform: none; transition: none; }
+  html.js-enabled .hero__sub--delayed,
+  html.js-enabled .hero__scroll--delayed { opacity: 1; transform: none; transition: none; }
+  /* マスクリビールは即時表示 */
+  html.js-enabled .reveal-mask img { clip-path: none; transform: none; transition: none; }
+  /* カード・下線ホバー等の transition も即時反映 */
+  html.js-enabled .card__media img,
+  .card__title::after,
+  .site-header__links a:not(.btn)::after { transition: none; }
 }
