@@ -60,7 +60,7 @@
 | 12 | `step-choose.webp` | guide ステップ1 | 4:3 | 1200×900 | 園芸店で小品盆栽を選ぶ手元 |
 | 13 | `step-place.webp` | guide ステップ2 | 4:3 | 1200×900 | 日当たりの良いベランダの棚に置かれた盆栽 |
 | 14 | `step-water.webp` | guide ステップ3 | 4:3 | 1200×900 | 土に注がれる水、細かい水流のクローズアップ |
-| 15 | `tools.webp` | guide 道具紹介 | 3:2 | 1600×1067 | 帆布の上に並ぶ盆栽鋏・ピンセット・針金・回転台 |
+| 15 | `tools.webp` | guide 道具紹介 | 3:2 | 1600×1067 | 帆布の上に並ぶ盆栽鋏・ピンセット・じょうろ(はす口)・針金 |
 | 16 | `first-tree.webp` | guide 最初の一鉢 | 3:2 | 1600×1067 | 丈夫な真柏の小品盆栽、シンプルな鉢 |
 | 17 | `hero-species.webp` | species ヒーロー | 16:9 | 2400×1350 | 展示棚に並ぶ多様な樹種、奥行きのある構図 |
 | 18 | `sp-kuromatsu.webp` | species 黒松 | 16:9 | 2000×1125 | 荒々しい幹肌と力強い枝ぶりの黒松 |
@@ -230,7 +230,7 @@
 - アスペクト比 / 解像度: 3:2 / 1600×1067px、WebP 品質80
 - 表示上の注意: 道具のフラットレイ。整然と美しく。
 - Prompt:
-  > A neat flat-lay of traditional Japanese bonsai tools arranged tidily on a natural canvas cloth: black bonsai scissors, a pair of tweezers, a coil of training wire, and a small wooden turntable, top-down slightly angled view, soft even morning daylight, clean minimal composition, refined craftsmanship mood, deep depth of field, everything in sharp focus, photorealistic, professional photography, muted earthy color palette (cream #F6F3EC, deep pine green #2E4B3C, dark brown #4A3728), Japanese aesthetic, high detail
+  > A neat flat-lay of traditional Japanese bonsai tools arranged tidily on a natural canvas cloth: black bonsai scissors, a pair of tweezers, a small copper watering can with a fine rose spout, and a coil of training wire, top-down slightly angled view, soft even morning daylight, clean minimal composition, refined craftsmanship mood, deep depth of field, everything in sharp focus, photorealistic, professional photography, muted earthy color palette (cream #F6F3EC, deep pine green #2E4B3C, dark brown #4A3728), Japanese aesthetic, high detail
 - Negative:
   > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, illustration, painting, CGI look
 
