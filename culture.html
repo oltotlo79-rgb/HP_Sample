@@ -39,7 +39,10 @@
 
     <!-- ===== ヒーロー（小型） ===== -->
     <section class="hero hero--sub">
-      <img class="hero__bg" src="/assets/images/hero-culture.webp" width="2400" height="1350" alt="美術館の照明に照らされた名品盆栽" fetchpriority="high" data-parallax>
+      <picture>
+        <source media="(max-width: 768px)" srcset="/assets/images/hero-culture-mobile.webp" width="1080" height="1440">
+        <img class="hero__bg" src="/assets/images/hero-culture.webp" width="2400" height="1350" alt="美術館の照明に照らされた名品盆栽" fetchpriority="high" data-parallax>
+      </picture>
       <div class="hero__inner">
         <span class="section-label">Culture</span>
         <h1 class="hero__title js-chars">千年を、鉢の上に</h1>

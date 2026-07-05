@@ -39,7 +39,10 @@
 
     <!-- ===== ヒーロー（小型） ===== -->
     <section class="hero hero--sub">
-      <img class="hero__bg" src="/assets/images/hero-care.webp" width="2400" height="1350" alt="朝の光のなかで盆栽に水をやる手元" fetchpriority="high" data-parallax>
+      <picture>
+        <source media="(max-width: 768px)" srcset="/assets/images/hero-care-mobile.webp" width="1080" height="1440">
+        <img class="hero__bg" src="/assets/images/hero-care.webp" width="2400" height="1350" alt="朝の光のなかで盆栽に水をやる手元" fetchpriority="high" data-parallax>
+      </picture>
       <div class="hero__inner">
         <span class="section-label">Care</span>
         <h1 class="hero__title js-chars">育てる、という愉しみ</h1>

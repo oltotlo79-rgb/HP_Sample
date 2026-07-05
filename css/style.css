@@ -446,6 +446,10 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   align-items: center;
   color: var(--c-ink-light);
 }
+/* モバイル出し分けの <picture> はレイアウト箱を生成させない
+   （中の img.hero__bg は position:absolute で .hero / .hero__kenburns 基準に配置される）。 */
+.hero picture,
+.hero__kenburns picture { display: contents; }
 .hero__bg {
   position: absolute;
   top: -10%;              /* height 120% の余裕を上下に割り振り、下方向移動でも上辺が露出しない */
@@ -949,17 +953,19 @@ html.js-enabled .reveal-mask.is-visible img { clip-path: inset(0); transform: sc
 }
 
 /* --- 6-7. 和紙テクスチャ・オーバーレイ --- */
-/* 【暫定】SVG feTurbulence の data URI ノイズを適用中。
-   codex 生成の texture-washi-light.webp が用意でき次第、background を
-   url('/assets/images/texture-washi-light.webp') repeat に差し替えること。 */
+/* 【本適用】codex 生成の texture-washi-light.webp を全面オーバーレイに使用。
+   2×2 タイル検証で継ぎ目・端の明度差（<1/255）・ビネットなしを確認済み。
+   2048px 原寸を background-size 1024px で縮小表示し粒を細かく上品に。
+   opacity 0.04 + multiply で「ほぼ無地だがわずかに紙の質感」の状態。 */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 2000;                 /* 本文の上・オープニング(3000)の下 */
   pointer-events: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;
-  opacity: 0.035;
+  background: url("/assets/images/texture-washi-light.webp") repeat;
+  background-size: 1024px 1024px;
+  opacity: 0.04;
   mix-blend-mode: multiply;      /* 低不透明度のため全面掛けでも違和感が出にくい */
 }
 

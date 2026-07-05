@@ -56,7 +56,10 @@
          同一要素に animation と inline transform を混在させない（fill-mode の固着回避）。 -->
     <section class="hero">
       <div class="hero__kenburns">
-        <img class="hero__bg" src="/assets/images/hero-top.webp" width="2400" height="1350" alt="床の間に置かれた黒松の盆栽" fetchpriority="high" data-parallax>
+        <picture>
+          <source media="(max-width: 768px)" srcset="/assets/images/hero-top-mobile.webp" width="1080" height="1440">
+          <img class="hero__bg" src="/assets/images/hero-top.webp" width="2400" height="1350" alt="床の間に置かれた黒松の盆栽" fetchpriority="high" data-parallax>
+        </picture>
       </div>
       <div class="hero__inner">
         <h1 class="v-title js-chars">小さな鉢の、<br>大きな宇宙。</h1>

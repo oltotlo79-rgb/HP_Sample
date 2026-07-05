@@ -39,7 +39,10 @@
 
     <!-- ===== ヒーロー（小型） ===== -->
     <section class="hero hero--sub">
-      <img class="hero__bg" src="/assets/images/hero-guide.webp" width="2400" height="1350" alt="明るい縁側で最初の一鉢に向き合う手元" fetchpriority="high" data-parallax>
+      <picture>
+        <source media="(max-width: 768px)" srcset="/assets/images/hero-guide-mobile.webp" width="1080" height="1440">
+        <img class="hero__bg" src="/assets/images/hero-guide.webp" width="2400" height="1350" alt="明るい縁側で最初の一鉢に向き合う手元" fetchpriority="high" data-parallax>
+      </picture>
       <div class="hero__inner">
         <span class="section-label">Guide</span>
         <h1 class="hero__title js-chars">はじめての盆栽</h1>
