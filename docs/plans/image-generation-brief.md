@@ -63,7 +63,7 @@
 | 15 | `tools.webp` | guide 道具紹介 | 3:2 | 1600×1067 | 帆布の上に並ぶ盆栽鋏・ピンセット・じょうろ(はす口)・針金 |
 | 16 | `first-tree.webp` | guide 最初の一鉢 | 3:2 | 1600×1067 | 丈夫な真柏の小品盆栽、シンプルな鉢 |
 | 17 | `hero-species.webp` | species ヒーロー | 16:9 | 2400×1350 | 展示棚に並ぶ多様な樹種、奥行きのある構図 |
-| 18 | `sp-kuromatsu.webp` | species 黒松 | 16:9 | 2000×1125 | 荒々しい幹肌と力強い枝ぶりの黒松 |
+| 18 | `sp-kuromatsu.webp` | species 黒松(ダーク章) | 16:9 | 2000×1125 | 【改訂版・再生成推奨】暗背景に浮かぶ荒々しい幹肌のクローズアップ |
 | 19 | `sp-goyomatsu.webp` | species 五葉松 | 16:9 | 2000×1125 | 短い葉が密につく気品ある五葉松 |
 | 20 | `sp-shimpaku.webp` | species 真柏 | 16:9 | 2000×1125 | 白い舎利と緑のコントラストが美しい真柏 |
 | 21 | `sp-momiji.webp` | species もみじ | 16:9 | 2000×1125 | 紅葉の盛りのもみじ盆栽、逆光で透ける葉 |
@@ -254,15 +254,16 @@
 - Negative:
   > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, illustration, painting, CGI look
 
-### 18. sp-kuromatsu.webp
+### 18. sp-kuromatsu.webp 【改訂版 — 再生成推奨】
 - 保存先: `assets/images/sp-kuromatsu.webp`
-- 使用箇所: `species.html` 黒松の樹種セクション(`.species-item` 全幅写真)
+- 使用箇所: `species.html` 黒松の樹種セクション(`.chapter--dark` 全幅写真)
 - アスペクト比 / 解像度: 16:9 / 2000×1125px、WebP 品質80
-- 表示上の注意: 黒松の力強さを主役に。テキストが重なる場合に備え片側をやや静かに。
+- 改訂理由: 初版(明るいベージュ壁の全身構図)はトップページのヒーロー(hero-top.webp)と構図が重複し、かつページの明暗リズム設計(黒松=ダーク章)に合わなかった。**暗背景の幹肌クローズアップ**として再生成すること。
+- 表示上の注意: ダークセクションで使用。荒々しい幹肌の質感を主役に、暗い背景で低調に。左1/3にテキストが載るため左側をやや静かに。
 - Prompt:
-  > A powerful Japanese black pine bonsai (kuromatsu) with a thick trunk, rough deeply cracked dark bark, and strong muscular branching holding dense dark green needles, the classic masculine "otoko-matsu" character, in an unglazed brown pot on a wooden stand, plain neutral background, soft morning side-light, dignified strong mood, shallow depth of field, photorealistic, professional photography, muted earthy color palette (cream #F6F3EC, deep pine green #2E4B3C, dark brown #4A3728), Japanese aesthetic, high detail
+  > A dramatic close-up of a Japanese black pine bonsai (kuromatsu) trunk, rough deeply cracked dark bark filling the frame with powerful muscular movement, dense dark green needles catching a single shaft of soft light, the classic masculine "otoko-matsu" character, emerging from a deep dark near-black background, low-key chiaroscuro lighting, dignified and strong mood, calm negative space on the left third of the frame, shallow depth of field, photorealistic, professional photography, muted earthy color palette (cream #F6F3EC, deep pine green #2E4B3C, dark brown #4A3728), Japanese aesthetic, high detail
 - Negative:
-  > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, illustration, painting, CGI look
+  > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, illustration, painting, CGI look, bright background, beige wall
 
 ### 19. sp-goyomatsu.webp
 - 保存先: `assets/images/sp-goyomatsu.webp`
