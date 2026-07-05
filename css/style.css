@@ -314,6 +314,11 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 /* 縦書きタイトル */
 .v-title { writing-mode: vertical-rl; letter-spacing: 0.35em; font-family: var(--font-serif); }
 
+/* 見出し等の折返し制御: 意味単位を括って語中分断を防ぐ
+   （<wbr> は日本語の分かち書きがないため実質無効。inline-block の塊なら
+   「塊の境界でだけ折り返してよい」という指定になる） */
+.nobr { display: inline-block; }
+
 /* --- 苔色ドットの箇条書き（.guide-list / .bonlog__features 共通の実体） --- */
 .dot-list,
 .guide-list,
@@ -396,8 +401,9 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 .site-footer .section-label {
   color: var(--c-moss);
 }
-/* 写真章の章番号（一/二/三）は moss だと写真に沈むため、
-   明色 + 細罫の編集的あしらいで視認性を確保する */
+/* 写真面のラベル（章番号 一/二/三、サブページヒーローの Guide 等）は
+   moss だと写真に沈むため、明色 + 細罫の編集的あしらいで視認性を確保する */
+.hero .section-label,
 .chapter .section-label {
   display: flex;
   align-items: center;
@@ -405,6 +411,7 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   color: var(--c-ink-light);
   opacity: 0.92;
 }
+.hero .section-label::after,
 .chapter .section-label::after {
   content: "";
   width: 2.75rem;
