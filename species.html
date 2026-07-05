@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>樹種図鑑 — 盆栽のあるくらし</title>
+  <meta name="description" content="黒松・五葉松・真柏・もみじ・欅・梅。盆栽の代表的な樹種の魅力を紹介。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="樹種図鑑 — 盆栽のあるくらし">
+  <meta property="og:description" content="黒松・五葉松・真柏・もみじ・欅・梅。盆栽の代表的な樹種の魅力を紹介。">
+  <meta property="og:image" content="/assets/images/og-image.webp">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>document.documentElement.classList.add('js-enabled')</script>
+</head>
+<body>
+
+  <!-- ===== 章インジケータ（.chapter-nav がある時のみ JS が駆動。1024px以下で非表示） ===== -->
+  <nav class="chapter-nav" aria-label="ページ内セクション">
+    <ul>
+      <li><a href="#section-intro" data-label="分類" aria-label="樹種の分類"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-kuromatsu" data-label="黒松" aria-label="黒松"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-goyomatsu" data-label="五葉松" aria-label="五葉松"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-shimpaku" data-label="真柏" aria-label="真柏"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-momiji" data-label="もみじ" aria-label="もみじ"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-keyaki" data-label="欅" aria-label="欅"><span class="chapter-nav__dot"></span></a></li>
+      <li><a href="#section-ume" data-label="梅" aria-label="梅"><span class="chapter-nav__dot"></span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== ヘッダー ===== -->
+  <header class="site-header">
+    <a class="site-header__logo" href="/">盆栽のあるくらし</a>
+    <nav class="site-header__nav" aria-label="メインナビゲーション">
+      <ul class="site-header__links">
+        <li><a href="/guide.html">はじめる</a></li>
+        <li><a href="/species.html" aria-current="page">樹種を知る</a></li>
+        <li><a href="/care.html">育てる</a></li>
+        <li><a href="/culture.html">歴史と文化</a></li>
+        <li><a class="btn btn--bonlog-nav" href="https://www.bon-log.com/" target="_blank" rel="noopener">BON-LOG</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-label="メニュー"><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== ヒーロー（小型） ===== -->
+    <section class="hero hero--sub">
+      <img class="hero__bg" src="/assets/images/hero-species.webp" width="2400" height="1350" alt="さまざまな樹種の盆栽が並ぶ棚" fetchpriority="high" data-parallax>
+      <div class="hero__inner">
+        <span class="section-label">Species</span>
+        <h1 class="hero__title js-chars">樹種図鑑</h1>
+        <p class="hero__sub hero__sub--delayed">松の風格、雑木の四季、花の便り。樹が変われば、楽しみも変わる。</p>
+      </div>
+    </section>
+
+    <!-- ===== 分類の説明 ===== -->
+    <section class="section" id="section-intro">
+      <div class="section__inner reveal">
+        <span class="section-label">Classification</span>
+        <h2 class="section-title">樹種を、<span class="nobr">三つに分けて。</span></h2>
+        <div class="text-block">
+          <p>盆栽の樹種は、大きく三つに分けられます。どんな景色を眺めていたいか——それによって、選ぶ樹はおのずと変わってきます。</p>
+          <ul class="dot-list">
+            <li><strong>松柏（しょうはく）盆栽</strong>——黒松や真柏など、一年をとおして緑を保つ常緑針葉樹。力強い幹と枝ぶりを身上とし、盆栽の王道とされます。</li>
+            <li><strong>雑木（ぞうき）盆栽</strong>——もみじや欅など、季節ごとに装いを変える落葉樹。芽出し、紅葉、そして冬の寒樹と、四季の移ろいそのものを楽しみます。</li>
+            <li><strong>花もの・実もの</strong>——梅をはじめ、花や実をつける樹。ひと鉢の上に、季節の便りが咲きます。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 樹種一 黒松 ===== -->
+    <section class="chapter" id="section-kuromatsu">
+      <img class="chapter__bg" src="/assets/images/sp-kuromatsu.webp" width="2000" height="1125" alt="荒々しい幹肌と濃緑の葉をもつ黒松の盆栽" data-parallax>
+      <div class="chapter__inner reveal">
+        <span class="section-label">Kuromatsu</span>
+        <h2 class="v-title js-chars">黒松</h2>
+        <div class="chapter__body">
+          <p>「男松（おとこまつ）」と呼ばれる、力強さの象徴。荒々しい幹肌と、太くしなる枝に宿る濃緑の葉が、盆栽らしい風格そのものを見せてくれます。手をかけるほどに男ぶりを増す、長く付き合いたい一鉢です。</p>
+          <dl class="sp-meta">
+            <div class="sp-meta__item"><dt>分類</dt><dd>松柏</dd></div>
+            <div class="sp-meta__item"><dt>難易度</dt><dd>ふつう</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 樹種二 五葉松 ===== -->
+    <section class="chapter" id="section-goyomatsu">
+      <img class="chapter__bg" src="/assets/images/sp-goyomatsu.webp" width="2000" height="1125" alt="短い葉が束になって芽吹く五葉松の盆栽" loading="lazy" data-parallax>
+      <div class="chapter__inner reveal">
+        <span class="section-label">Goyomatsu</span>
+        <h2 class="v-title js-chars">五葉松</h2>
+        <div class="chapter__body">
+          <p>短い葉が五本ずつ束になって芽吹く、気品ある松。ふっくらとまとまる葉姿はやわらかく、松柏のなかでも祝いの席に好んで飾られてきました。おおらかな枝ぶりが、床の間に静かな品格を添えます。</p>
+          <dl class="sp-meta">
+            <div class="sp-meta__item"><dt>分類</dt><dd>松柏</dd></div>
+            <div class="sp-meta__item"><dt>難易度</dt><dd>ふつう</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 樹種三 真柏（暗色） ===== -->
+    <section class="chapter chapter--dark" id="section-shimpaku">
+      <img class="chapter__bg" src="/assets/images/sp-shimpaku.webp" width="2000" height="1125" alt="白い舎利と生きた水吸いの緑が対照的な真柏の盆栽" loading="lazy" data-parallax>
+      <div class="chapter__inner reveal">
+        <span class="section-label">Shimpaku</span>
+        <h2 class="v-title js-chars">真柏</h2>
+        <div class="chapter__body">
+          <p>白く枯れた舎利（しゃり）と、生きた水吸いの緑。生と死が一本の樹に同居するその対比こそ、真柏いちばんの見どころです。丈夫で枝枯れしにくく、はじめての一鉢にも心強い相棒になってくれます。</p>
+          <dl class="sp-meta">
+            <div class="sp-meta__item"><dt>分類</dt><dd>松柏</dd></div>
+            <div class="sp-meta__item"><dt>難易度</dt><dd>やさしい</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 樹種四 もみじ ===== -->
+    <section class="chapter" id="section-momiji">
+      <img class="chapter__bg" src="/assets/images/sp-momiji.webp" width="2000" height="1125" alt="紅葉したもみじの盆栽" loading="lazy" data-parallax>
+      <div class="chapter__inner reveal">
+        <span class="section-label">Momiji</span>
+        <h2 class="v-title js-chars">もみじ</h2>
+        <div class="chapter__body">
+          <p>春の芽出し、夏の緑陰、秋の紅葉、そして葉を落とした冬の枝——一年をとおして表情を変えつづける、雑木の代表格です。日々の移ろいがそのまま鉢の上にあらわれ、季節がめぐるたびに新しい顔を見せてくれます。</p>
+          <dl class="sp-meta">
+            <div class="sp-meta__item"><dt>分類</dt><dd>雑木</dd></div>
+            <div class="sp-meta__item"><dt>難易度</dt><dd>やさしい</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 樹種五 欅（暗色・寒樹） ===== -->
+    <section class="chapter chapter--dark" id="section-keyaki">
+      <img class="chapter__bg" src="/assets/images/sp-keyaki.webp" width="2000" height="1125" alt="ほうき立ちの端正な樹形をもつ欅の盆栽" loading="lazy" data-parallax>
+      <div class="chapter__inner reveal">
+        <span class="section-label">Keyaki</span>
+        <h2 class="v-title js-chars">欅</h2>
+        <div class="chapter__body">
+          <p>細い枝を扇状に広げる「ほうき立ち」の、端正なたたずまい。葉を落とした冬、繊細な枝ぶりだけで立つ姿——寒樹（かんじゅ）こそが、欅のいちばんの見どころです。ひと枝ひと枝の積み重ねが、やがて一本の大樹の景色を描きます。</p>
+          <dl class="sp-meta">
+            <div class="sp-meta__item"><dt>分類</dt><dd>雑木</dd></div>
+            <div class="sp-meta__item"><dt>難易度</dt><dd>ふつう</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 樹種六 梅 ===== -->
+    <section class="chapter" id="section-ume">
+      <img class="chapter__bg" src="/assets/images/sp-ume.webp" width="2000" height="1125" alt="古木に花を咲かせた梅の盆栽" loading="lazy" data-parallax>
+      <div class="chapter__inner reveal">
+        <span class="section-label">Ume</span>
+        <h2 class="v-title js-chars">梅</h2>
+        <div class="chapter__body">
+          <p>まだ寒さの残る早春、古びた幹にほころぶ花と、あたりに漂う清らかな香り。花もののなかでも、梅は春の便りをいち早く届けてくれる樹です。ごつごつとした老木に咲く、可憐な花の対比に、深い味わいがあります。</p>
+          <dl class="sp-meta">
+            <div class="sp-meta__item"><dt>分類</dt><dd>花もの</dd></div>
+            <div class="sp-meta__item"><dt>難易度</dt><dd>ふつう</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== guide 誘導 ===== -->
+    <section class="section">
+      <div class="section__inner reveal">
+        <div class="text-block">
+          <p>気になる樹は、見つかりましたか。最初の一鉢を選ぶなら——<a href="/guide.html">盆栽入門</a>へ。選び方と、育てはじめの基本をやさしくご案内しています。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 共通 CTA バンド ===== -->
+    <section class="cta-band">
+      <p class="cta-band__copy">あなたの盆栽を、記録しよう。</p>
+      <p class="cta-band__sub">一枚の写真から、はじめられます。育てた日々が、そのまま一本の物語になります。</p>
+      <a class="btn btn--bonlog" href="https://www.bon-log.com/" target="_blank" rel="noopener">BON-LOG をはじめる</a>
+    </section>
+
+  </main>
+
+  <!-- ===== フッター ===== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__logo">盆栽のあるくらし</div>
+      <nav aria-label="フッターナビゲーション">
+        <ul>
+          <li><a href="/guide.html">はじめる</a></li>
+          <li><a href="/species.html">樹種を知る</a></li>
+          <li><a href="/care.html">育てる</a></li>
+          <li><a href="/culture.html">歴史と文化</a></li>
+          <li><a href="https://www.bon-log.com/" target="_blank" rel="noopener">BON-LOG</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="site-footer__copyright">© 2026 盆栽のあるくらし</p>
+  </footer>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>
