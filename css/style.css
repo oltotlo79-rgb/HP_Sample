@@ -396,6 +396,22 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 .site-footer .section-label {
   color: var(--c-moss);
 }
+/* 写真章の章番号（一/二/三）は moss だと写真に沈むため、
+   明色 + 細罫の編集的あしらいで視認性を確保する */
+.chapter .section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--c-ink-light);
+  opacity: 0.92;
+}
+.chapter .section-label::after {
+  content: "";
+  width: 2.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
 .section-title {
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 4vw, 2.4rem);
@@ -922,18 +938,17 @@ html.js-enabled .reveal-mask.is-visible img { clip-path: inset(0); transform: sc
 }
 
 /* --- 6-7. 和紙テクスチャ・オーバーレイ --- */
-/* 生成画像 texture-washi-light.webp が未用意（404）の間は不透明度0.04 かつ
-   pointer-events:none のため無害（見た目に影響しない）。
-   生成画像が用意できない場合は、下記の SVG feTurbulence data URI で代替可:
-   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat; */
+/* 【暫定】SVG feTurbulence の data URI ノイズを適用中。
+   codex 生成の texture-washi-light.webp が用意でき次第、background を
+   url('/assets/images/texture-washi-light.webp') repeat に差し替えること。 */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 2000;                 /* 本文の上・オープニング(3000)の下 */
   pointer-events: none;
-  background: url('/assets/images/texture-washi-light.webp') repeat;
-  opacity: 0.04;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;
+  opacity: 0.035;
   mix-blend-mode: multiply;      /* 低不透明度のため全面掛けでも違和感が出にくい */
 }
 

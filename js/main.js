@@ -246,43 +246,84 @@
       leaves.forEach((l) => { if (l.baseX > w) l.baseX = Math.random() * w; });
     };
 
+    /* もみじスプライト: 掌状（5/7裂）シルエットを一度だけオフスクリーン canvas に
+       描き、drawImage で使い回す（毎フレームのパス構築より綺麗で軽い）。
+       各裂片は基部から先端へ細く尖り、裂片間に深い切れ込み（凹の2次ベジェ）。
+       真下は裂片を置かず、短い葉柄（茎）を描く。 */
+    const SPRITE = 96;
+    const spriteCache = new Map();
+    const buildSprite = (color, lobes) => {
+      const key = color + lobes;
+      if (spriteCache.has(key)) return spriteCache.get(key);
+      const off = document.createElement('canvas');
+      off.width = SPRITE;
+      off.height = SPRITE;
+      const c = off.getContext('2d');
+      const r = SPRITE * 0.42;
+      c.translate(SPRITE / 2, SPRITE / 2);
+      /* 扇の開き: 5裂は狭め・7裂は掌状に大きく（広すぎると星形に見える）。
+         パラメータはブラウザ実表示で「もみじと分かる」まで調整した値。 */
+      const fan = Math.PI * (lobes === 5 ? 1.15 : 1.65);
+      const step = fan / (lobes - 1);
+      const start = -Math.PI / 2 - fan / 2;
+      const sinusR = r * 0.30;              /* 裂片間の深い切れ込みの半径 */
+      const ctrlR = 0.60;                   /* 裂片側面の膨らみ位置（長さ比） */
+      const wAng = 0.26;                    /* 裂片の半幅（rad）: 披針形の膨らみ */
+      const edgeK = lobes === 5 ? 0.34 : 0.38;
+      c.beginPath();
+      c.moveTo(Math.cos(start - step / 2) * sinusR, Math.sin(start - step / 2) * sinusR);
+      for (let i = 0; i < lobes; i += 1) {
+        const aTip = start + step * i;
+        const edge = Math.abs(i - (lobes - 1) / 2) / ((lobes - 1) / 2);
+        const len = r * (1 - edgeK * edge); /* 中央の裂片が最長 */
+        /* 中腹が膨らみ先端へ細く尖る披針形の裂片（2次ベジェ、直線ジグザグ不可） */
+        c.quadraticCurveTo(
+          Math.cos(aTip - wAng) * len * ctrlR, Math.sin(aTip - wAng) * len * ctrlR,
+          Math.cos(aTip) * len, Math.sin(aTip) * len
+        );
+        c.quadraticCurveTo(
+          Math.cos(aTip + wAng) * len * ctrlR, Math.sin(aTip + wAng) * len * ctrlR,
+          Math.cos(aTip + step / 2) * sinusR, Math.sin(aTip + step / 2) * sinusR
+        );
+      }
+      /* 葉柄（下向きの短い茎） */
+      c.lineTo(SPRITE * 0.015, r * 0.5);
+      c.lineTo(0, r * 0.78);
+      c.lineTo(-SPRITE * 0.015, r * 0.5);
+      c.closePath();
+      c.fillStyle = color;
+      c.fill();
+      spriteCache.set(key, off);
+      return off;
+    };
+
     const makeLeaf = (initial) => {
-      const size = 12 + Math.random() * 14;              // 12〜26px
+      const size = 14 + Math.random() * 16;              // 14〜30px
       return {
         baseX: Math.random() * w,
         x: 0,
         y: initial ? Math.random() * h : -size,
         size,
         rot: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.018,
-        fallSpeed: 0.22 + Math.random() * 0.45,
-        swayAmp: 12 + Math.random() * 26,
+        rotSpeed: (Math.random() - 0.5) * 0.024,
+        fallSpeed: 0.45 + Math.random() * 0.85,          // 0.45〜1.3px/frame
+        swayAmp: 18 + Math.random() * 34,
         swayPhase: Math.random() * Math.PI * 2,
-        swaySpeed: 0.007 + Math.random() * 0.011,
-        alpha: 0.26 + Math.random() * 0.34,
-        color: palette[(Math.random() * palette.length) | 0]
+        swaySpeed: 0.008 + Math.random() * 0.012,
+        flutterPhase: Math.random() * Math.PI * 2,       // 葉の翻り（横スケール±1）
+        flutterSpeed: 0.02 + Math.random() * 0.022,
+        alpha: 0.35 + Math.random() * 0.35,
+        sprite: buildSprite(
+          palette[(Math.random() * palette.length) | 0],
+          Math.random() < 0.5 ? 5 : 7
+        )
       };
     };
 
     const build = () => {
-      const count = window.innerWidth <= 768 ? 6 : 12;
+      const count = window.innerWidth <= 768 ? 7 : 14;
       leaves = [];
       for (let i = 0; i < count; i += 1) leaves.push(makeLeaf(true));
-    };
-
-    // もみじシルエット（5裂の星形パス）
-    const drawShape = (s) => {
-      const tips = 5;
-      const step = Math.PI / tips;
-      ctx.beginPath();
-      for (let i = 0; i <= tips * 2; i += 1) {
-        const ang = -Math.PI / 2 + i * step;
-        const r = (i % 2 === 0) ? s : s * 0.42;
-        const px = Math.cos(ang) * r;
-        const py = Math.sin(ang) * r;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      }
-      ctx.closePath();
     };
 
     const frame = () => {
@@ -290,16 +331,20 @@
       leaves.forEach((l) => {
         l.y += l.fallSpeed;
         l.swayPhase += l.swaySpeed;
+        l.flutterPhase += l.flutterSpeed;
         l.rot += l.rotSpeed;
         l.x = l.baseX + Math.sin(l.swayPhase) * l.swayAmp;
         if (l.y - l.size > h) { l.y = -l.size; l.baseX = Math.random() * w; }
+        /* ヒラヒラ: 横方向スケールを sin で -1〜1 に揺らし、葉の翻りを表現
+           （0 近傍は完全な線になるため下限 0.12 でクランプ） */
+        const fl = Math.sin(l.flutterPhase);
+        const flip = (fl < 0 ? -1 : 1) * Math.max(0.12, Math.abs(fl));
         ctx.save();
         ctx.translate(l.x, l.y);
         ctx.rotate(l.rot);
+        ctx.scale(flip, 1);
         ctx.globalAlpha = l.alpha;
-        ctx.fillStyle = l.color;
-        drawShape(l.size / 2);
-        ctx.fill();
+        ctx.drawImage(l.sprite, -l.size / 2, -l.size / 2, l.size, l.size);
         ctx.restore();
       });
       rafId = requestAnimationFrame(frame);
