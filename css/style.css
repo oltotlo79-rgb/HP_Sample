@@ -1085,3 +1085,111 @@ body::before {
   font-size: 0.92rem;
   letter-spacing: 0.1em;
 }
+
+
+/* =========================================================
+   9. care 固有（四季の作業カレンダー・タブUI）
+   タブUIの ARIA/挙動は main.js（Season tabs）が駆動。ここは見た目のみ。
+   選択状態は角丸ピルを避け、明朝タブ + 墨色下線のあしらいで示す。
+   パネル切替は opacity/transform の軽いフェード（reduced-motion で無効）。
+   ========================================================= */
+.season__inner {
+  max-width: var(--width-content);
+  margin: 0 auto;
+}
+.season__lead {
+  max-width: var(--width-text);
+  margin: 0 0 2.5rem;
+}
+
+/* タブ一覧: 下端に細罫を通し、選択タブの下線をそこに重ねる */
+.season__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.25rem, 4vw, 2.75rem);
+  margin: 0 0 clamp(2rem, 5vw, 3rem);
+  border-bottom: 1px solid rgba(38, 34, 28, 0.14);
+}
+.season__tab {
+  position: relative;
+  margin: 0;
+  padding: 0.35rem 0.15rem 0.9rem;
+  border: 0;
+  background: transparent;
+  color: var(--c-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.35s ease;
+}
+.season__tab:hover { opacity: 0.8; }
+/* 選択状態: 墨色の下線を罫の上に重ねる（角丸ピルは不可） */
+.season__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--c-ink);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.season__tab[aria-selected="true"] {
+  opacity: 1;
+}
+.season__tab[aria-selected="true"]::after { transform: scaleX(1); }
+
+/* パネル: 写真 + 作業リストの2カラム（.split に準じた交互なしの左右） */
+.season__panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 4.5rem);
+}
+/* display:grid が UA の [hidden]{display:none} を上書きしてしまうため明示的に隠す
+   （JS が非選択パネルに hidden 属性を付与する） */
+.season__panel[hidden] { display: none; }
+.season__media { margin: 0; }
+.season__media img { width: 100%; }
+.season__body { max-width: var(--width-text); }
+.season__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  margin: 0 0 0.5rem;
+}
+.season__note {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--c-brown);
+  margin: 0 0 1.75rem;
+}
+
+/* 切替フェード（JS有効時のみ）: 表示中パネルを軽く立ち上げる */
+html.js-enabled .season__panel:not([hidden]) {
+  animation: season-fade 0.55s ease both;
+}
+@keyframes season-fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 768px) {
+  .season__panel { grid-template-columns: 1fr; }
+  .season__media { order: 0; margin: 0 0 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-enabled .season__panel:not([hidden]) { animation: none; }
+  .season__tab,
+  .season__tab::after { transition: none; }
+}
