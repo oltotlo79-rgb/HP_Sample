@@ -45,7 +45,19 @@ h1 { margin: 0; }
 p { margin: 0; }
 ul { margin: 0; padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
-:focus-visible { outline: 2px solid var(--c-moss); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--c-ink); outline-offset: 3px; }
+/* 暗色面（写真・夜色背景）上ではフォーカスリングを明色に */
+.hero :focus-visible,
+.chapter :focus-visible,
+.chapter--dark :focus-visible,
+.site-footer :focus-visible,
+.site-header:not(.is-scrolled):not(.site-header--solid) :focus-visible {
+  outline-color: var(--c-ink-light);
+}
+/* ただしモバイルドロワー展開中（生成り背景）は墨色に戻す */
+.site-header .site-header__links.is-open :focus-visible {
+  outline-color: var(--c-ink);
+}
 
 
 /* ===== 2. 共通コンポーネント ===== */
@@ -67,11 +79,34 @@ a { color: inherit; text-decoration: none; }
   background: transparent;
   transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
 }
+/* 透明状態でのナビ可読性スクリム（写真上の白文字の可読性目的） */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(rgba(22, 27, 23, 0.38), transparent);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
 .site-header.is-scrolled {
   color: var(--c-ink);
   background: var(--c-base);
   box-shadow: 0 1px 0 rgba(38, 34, 28, 0.08);
 }
+.site-header.is-scrolled::before { opacity: 0; }
+
+/* 【契約】ヒーロー（写真背景）を持たないページ（404 等）では、
+   透明ヘッダーの白文字が生成り背景に載って読めなくなるため、
+   必ず `.site-header site-header--solid` として使用すること。
+   初期状態から .is-scrolled と同等の見た目（生成り背景 + 墨色文字）になる。 */
+.site-header--solid {
+  color: var(--c-ink);
+  background: var(--c-base);
+  box-shadow: 0 1px 0 rgba(38, 34, 28, 0.08);
+}
+.site-header--solid::before { opacity: 0; }
 
 .site-header__logo {
   font-family: var(--font-serif);
@@ -174,7 +209,8 @@ a { color: inherit; text-decoration: none; }
   color: var(--c-ink);
 }
 /* 生成りヘッダー時（墨文字）: ホバーで夜空色・鳥の子文字 */
-.is-scrolled .btn--bonlog-nav:hover {
+.is-scrolled .btn--bonlog-nav:hover,
+.site-header--solid .btn--bonlog-nav:hover {
   background: var(--c-yozora);
   border-color: var(--c-yozora);
   color: var(--c-kinoko);
@@ -268,6 +304,19 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   max-width: var(--width-text);
 }
 
+/* 本文インラインリンクの識別（.btn 系は除外） */
+.text-block a:not(.btn),
+.split__body a:not(.btn),
+.chapter__body a:not(.btn) {
+  color: var(--c-pine);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+/* 暗色面（章セクション）では pine は沈むため、文字色を継承し下線のみで識別 */
+.chapter__body a:not(.btn) {
+  color: inherit;
+}
+
 /* セクション見出しの編集的パターン
    （小さな英字/漢字ラベル + 明朝見出し） */
 .section-label {
@@ -275,8 +324,15 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   font-family: var(--font-serif);
   font-size: 0.8rem;
   letter-spacing: 0.3em;
-  color: var(--c-moss);
+  color: var(--c-pine); /* 明色面: moss は小テキストで AA 不合格のため pine */
   margin-bottom: 1.25rem;
+}
+/* 暗色面では moss で AA を満たす（約5:1） */
+.hero .section-label,
+.chapter .section-label,
+.chapter--dark .section-label,
+.site-footer .section-label {
+  color: var(--c-moss);
 }
 .section-title {
   font-family: var(--font-serif);
@@ -299,7 +355,8 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 }
 .hero__bg {
   position: absolute;
-  inset: 0;
+  top: -10%;              /* height 120% の余裕を上下に割り振り、下方向移動でも上辺が露出しない */
+  left: 0;
   width: 100%;
   height: 120%;           /* パララックス時にはみ出さない余裕 */
   object-fit: cover;
@@ -352,7 +409,8 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 }
 .chapter__bg {
   position: absolute;
-  inset: 0;
+  top: -10%;              /* .hero__bg と同じくパララックスの上下余裕 */
+  left: 0;
   width: 100%;
   height: 120%;
   object-fit: cover;
@@ -494,6 +552,11 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
     opacity: 1;
     visibility: visible;
     transform: none;
+  }
+
+  /* ドロワー展開中は背景スクロールをロック（:has 非対応ブラウザでは劣化許容） */
+  html:has(.site-header__links.is-open) {
+    overflow: hidden;
   }
 
   .split {
