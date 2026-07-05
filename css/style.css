@@ -351,8 +351,13 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 }
 
 /* --- ヒーロー --- */
+/* 【スタッキング契約】.hero/.chapter は isolation:isolate で独立の
+   スタッキングコンテキストを作る。内部は 背景img(z:0) < スクリム::before(z:1)
+   < 本文(z:2) の順。isolate なしでは z-index 負値がルートに巻き上げられ、
+   DOM順で後の img がスクリムより上に来て文字が読めなくなる。 */
 .hero {
   position: relative;
+  isolation: isolate;
   min-height: 100vh;      /* svh 非対応フォールバック */
   min-height: 100svh;
   overflow: hidden;
@@ -367,17 +372,19 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   width: 100%;
   height: 120%;           /* パララックス時にはみ出さない余裕 */
   object-fit: cover;
-  z-index: -1;
+  z-index: 0;
 }
 /* 写真上の可読性のためのスクリム（写真可読性目的のグラデは許容） */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   background: linear-gradient(90deg, rgba(22, 27, 23, 0.55) 0%, rgba(22, 27, 23, 0.15) 45%, rgba(22, 27, 23, 0) 75%);
 }
 .hero__inner {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: var(--width-content);
   margin: 0 auto;
@@ -387,10 +394,12 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   align-items: flex-start;
   gap: 2rem;
 }
+/* h1 は <br> で「小さな鉢の、/大きな宇宙。」の均整2列
+   （vertical-rl では右列→左列）。max-height の強制折返しは
+   語中分断を生むため使わない。 */
 .hero__inner .v-title {
   font-size: clamp(2rem, 6vw, 3.5rem);
   line-height: 1.5;
-  max-height: 70svh;
 }
 .hero__sub {
   max-width: 30rem;
@@ -405,8 +414,10 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 }
 
 /* --- 全画面写真の章セクション --- */
+/* スタッキングは .hero と同じ契約（isolate + img:0 / scrim:1 / 本文:2） */
 .chapter {
   position: relative;
+  isolation: isolate;
   min-height: 90vh;
   min-height: 90svh;
   overflow: hidden;
@@ -421,16 +432,18 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   width: 100%;
   height: 120%;
   object-fit: cover;
-  z-index: -1;
+  z-index: 0;
 }
 .chapter::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   background: linear-gradient(90deg, rgba(22, 27, 23, 0.5) 0%, rgba(22, 27, 23, 0.1) 55%, rgba(22, 27, 23, 0) 100%);
 }
 .chapter__inner {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: var(--width-content);
   margin: 0 auto;
@@ -446,9 +459,15 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 .chapter__body {
   max-width: var(--width-text);
 }
+/* night 背景は画像ロード失敗時のフォールバック
+   （img は z:0 で要素背景より上に描画される） */
 .chapter--dark {
   background: var(--c-night);
   color: var(--c-ink-light);
+}
+/* 暗い写真章はスクリムをやや強め、右側まで薄く残して可読性を確保 */
+.chapter--dark::before {
+  background: linear-gradient(90deg, rgba(22, 27, 23, 0.6) 0%, rgba(22, 27, 23, 0.25) 55%, rgba(22, 27, 23, 0.1) 100%);
 }
 
 /* --- 2カラム（写真 + 本文）交互配置 --- */
@@ -529,6 +548,7 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 /* --- ヒーローのスクロール誘導 --- */
 .hero__scroll {
   position: absolute;
+  z-index: 2;             /* スクリム(z:1)より上に置く */
   bottom: 1.75rem;
   left: 50%;
   transform: translateX(-50%);
@@ -675,4 +695,14 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 
   .bonlog__inner { grid-template-columns: 1fr; }
   .bonlog__media img { max-width: 300px; }
+
+  /* モバイルでは本文が画面幅いっぱいに及ぶため、
+     左→右の横グラデでは右端の可読性が不足する。縦方向に切替。 */
+  .hero::before,
+  .chapter::before {
+    background: linear-gradient(rgba(22, 27, 23, 0.45), rgba(22, 27, 23, 0.15));
+  }
+  .chapter--dark::before {
+    background: linear-gradient(rgba(22, 27, 23, 0.55), rgba(22, 27, 23, 0.25));
+  }
 }
