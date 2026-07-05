@@ -116,7 +116,7 @@
 ### T01. texture-washi-light.webp
 - 保存先: `assets/images/texture-washi-light.webp`
 - 使用箇所: 明色セクション(生成り `#F6F3EC` 背景)への低不透明度オーバーレイ。CSS で `opacity: 0.03〜0.05` 相当 + `background-repeat: repeat` のタイルとして使用。
-- アスペクト比 / 解像度: 1:1 / 2048×2048px、WebP 品質80
+- アスペクト比 / 解像度: 1:1 / 2048×2048px、**WebP は可逆(lossless)または品質90以上**(ほぼ無地の微細な繊維ディテールは非可逆圧縮でつぶれ・バンディングが出やすい。内容がほぼ平坦なためロスレスでもファイルサイズは小さい)
 - 表示上の注意: **ほぼ無地**が正しい。`#F6F3EC` 近傍の**ごく淡い明度変化のみ**で、強いパターン・文字・グラデーション・ビネットは禁止。継ぎ目が目立たない均質テクスチャを目指す。**運用注記: 完全なシームレスは生成 AI では困難なため、生成後に 2×2 でタイル状に並べて端の明度差・継ぎ目を確認し、目立つ場合はこの画像を使わず CSS の SVG `feTurbulence` ノイズで代替する。**
 - Prompt:
   > An extreme close-up of plain handmade Japanese washi paper, fine natural paper fibers and subtle uneven pulp density (sukimura) as the only visible detail, almost uniform pale cream tone very close to #F6F3EC with only the faintest variations in brightness, flat frontal view filling the entire frame edge to edge, even homogeneous texture designed to tile seamlessly with no distinct features near the edges, no pattern, no gradient, soft perfectly even diffused light with no visible light falloff, deep depth of field, everything in sharp focus, photorealistic, professional photography, Japanese aesthetic, high detail
@@ -126,8 +126,8 @@
 ### T02. texture-washi-dark.webp
 - 保存先: `assets/images/texture-washi-dark.webp`
 - 使用箇所: 夜色セクション(`#161B17` 背景、`.chapter--dark` や `.site-footer` 等)への低不透明度オーバーレイ。CSS で `opacity: 0.03〜0.05` 相当 + `background-repeat: repeat` のタイルとして使用。
-- アスペクト比 / 解像度: 1:1 / 2048×2048px、WebP 品質80
-- 表示上の注意: **ほぼ無地**が正しい。`#161B17` 近傍の**ごく淡い明度変化のみ**で、強いパターン・文字・グラデーション・ビネットは禁止。継ぎ目が目立たない均質テクスチャを目指す。**運用注記: 完全なシームレスは生成 AI では困難なため、生成後に 2×2 でタイル状に並べて端の明度差・継ぎ目を確認し、目立つ場合はこの画像を使わず CSS の SVG `feTurbulence` ノイズで代替する。**
+- アスペクト比 / 解像度: 1:1 / 2048×2048px、**WebP は可逆(lossless)または品質90以上**(ほぼ無地の微細な繊維ディテールは非可逆圧縮でつぶれ・バンディングが出やすい。内容がほぼ平坦なためロスレスでもファイルサイズは小さい)
+- 表示上の注意: **ほぼ無地**が正しい。`#161B17` 近傍の**ごく淡い明度変化のみ**で、強いパターン・文字・グラデーション・ビネットは禁止。継ぎ目が目立たない均質テクスチャを目指す。**運用注記: 完全なシームレスは生成 AI では困難なため、生成後に 2×2 でタイル状に並べて端の明度差・継ぎ目を確認し、目立つ場合はこの画像を使わず CSS の SVG `feTurbulence` ノイズで代替する。** また、生成 AI は近黒トーンを指定より数段明るく出しがちなため、**生成後にレベル補正で #161B17 近傍へ暗く調整してよい**(3〜5% の不透明度で正しい背景色に重ねるため、正確な色相よりも明度が合っていることが重要)。
 - Prompt:
   > An extreme close-up of plain handmade Japanese washi paper in a very dark near-black tone close to #161B17, fine natural paper fibers and subtle uneven pulp density (sukimura) visible only as the faintest tonal variations, flat frontal view filling the entire frame edge to edge, even homogeneous texture designed to tile seamlessly with no distinct features near the edges, no pattern, no gradient, soft perfectly even diffused light with no visible light falloff, deep depth of field, everything in sharp focus, photorealistic, professional photography, Japanese aesthetic, high detail
 - Negative:
