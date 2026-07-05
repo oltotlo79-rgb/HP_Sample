@@ -524,7 +524,8 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, rgba(22, 27, 23, 0.5) 0%, rgba(22, 27, 23, 0.1) 55%, rgba(22, 27, 23, 0) 100%);
+  /* 中間〜右端を底上げし、本文行末（--width-text の右端）の可読性を確保 */
+  background: linear-gradient(90deg, rgba(22, 27, 23, 0.5) 0%, rgba(22, 27, 23, 0.22) 60%, rgba(22, 27, 23, 0.06) 100%);
 }
 .chapter__inner {
   position: relative;

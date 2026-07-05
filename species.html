@@ -56,7 +56,7 @@
       <div class="hero__inner">
         <span class="section-label">Species</span>
         <h1 class="hero__title js-chars">樹種図鑑</h1>
-        <p class="hero__sub hero__sub--delayed">松の風格、雑木の四季、花の便り。樹が変われば、楽しみも変わる。</p>
+        <p class="hero__sub hero__sub--delayed">松の風格、雑木の四季、花の便り。<span class="nobr">樹が変われば、</span><span class="nobr">楽しみも変わる。</span></p>
       </div>
     </section>
 
@@ -76,8 +76,10 @@
       </div>
     </section>
 
-    <!-- ===== 樹種一 黒松 ===== -->
-    <section class="chapter" id="section-kuromatsu">
+    <!-- ===== 樹種一 黒松（暗色） ===== -->
+    <!-- 現行の sp-kuromatsu.webp は明色トーンのため、暗背景の幹肌クローズアップへ
+         画像再生成待ち（brief-1 改訂済み）。当面は --dark の強スクリムで可読性を確保。 -->
+    <section class="chapter chapter--dark" id="section-kuromatsu">
       <img class="chapter__bg" src="/assets/images/sp-kuromatsu.webp" width="2000" height="1125" alt="荒々しい幹肌と濃緑の葉をもつ黒松の盆栽" loading="lazy" data-parallax>
       <div class="chapter__inner reveal">
         <span class="section-label">Kuromatsu</span>
@@ -108,8 +110,8 @@
       </div>
     </section>
 
-    <!-- ===== 樹種三 真柏（暗色） ===== -->
-    <section class="chapter chapter--dark" id="section-shimpaku">
+    <!-- ===== 樹種三 真柏 ===== -->
+    <section class="chapter" id="section-shimpaku">
       <img class="chapter__bg" src="/assets/images/sp-shimpaku.webp" width="2000" height="1125" alt="白い舎利と生きた水吸いの緑が対照的な真柏の盆栽" loading="lazy" data-parallax>
       <div class="chapter__inner reveal">
         <span class="section-label">Shimpaku</span>
@@ -124,8 +126,8 @@
       </div>
     </section>
 
-    <!-- ===== 樹種四 もみじ ===== -->
-    <section class="chapter" id="section-momiji">
+    <!-- ===== 樹種四 もみじ（暗色） ===== -->
+    <section class="chapter chapter--dark" id="section-momiji">
       <img class="chapter__bg" src="/assets/images/sp-momiji.webp" width="2000" height="1125" alt="紅葉したもみじの盆栽" loading="lazy" data-parallax>
       <div class="chapter__inner reveal">
         <span class="section-label">Momiji</span>
@@ -140,8 +142,8 @@
       </div>
     </section>
 
-    <!-- ===== 樹種五 欅（暗色・寒樹） ===== -->
-    <section class="chapter chapter--dark" id="section-keyaki">
+    <!-- ===== 樹種五 欅（寒樹） ===== -->
+    <section class="chapter" id="section-keyaki">
       <img class="chapter__bg" src="/assets/images/sp-keyaki.webp" width="2000" height="1125" alt="ほうき立ちの端正な樹形をもつ欅の盆栽" loading="lazy" data-parallax>
       <div class="chapter__inner reveal">
         <span class="section-label">Keyaki</span>
