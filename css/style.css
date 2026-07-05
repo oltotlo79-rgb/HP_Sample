@@ -524,6 +524,107 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
 }
 
 
+/* ===== 4. index 固有 ===== */
+
+/* --- ヒーローのスクロール誘導 --- */
+.hero__scroll {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  writing-mode: vertical-rl;
+  color: var(--c-ink-light);
+  opacity: 0.85;
+}
+.hero__scroll::after {
+  content: "";
+  width: 1px;
+  height: 3rem;
+  background: currentColor;
+  transform-origin: top;
+  animation: scroll-line 2.4s ease-in-out infinite;
+}
+@keyframes scroll-line {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.3; }
+  50% { transform: scaleY(1); opacity: 0.75; }
+}
+
+/* --- BON-LOG 告知セクション --- */
+.bonlog {
+  background: var(--c-kinoko);
+  padding: var(--space-section) clamp(1.25rem, 5vw, 3rem);
+}
+.bonlog__inner {
+  max-width: var(--width-content);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+.bonlog__text { max-width: 34rem; }
+/* BON-LOG ブランド色（夜空色）を見出しのアクセントに限定使用 */
+.bonlog .section-label { color: var(--c-yozora); }
+.bonlog__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  color: var(--c-yozora);
+  margin: 0 0 0.9rem;
+}
+.bonlog__sub {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  color: var(--c-yozora);
+  margin: 0 0 1.75rem;
+}
+.bonlog__body { margin: 0 0 1.75rem; }
+.bonlog__features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0 0 1.75rem;
+}
+.bonlog__features li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+.bonlog__features li::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.8em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--c-moss);
+  border-radius: 50%;
+}
+.bonlog__note {
+  font-size: 0.85rem;
+  color: var(--c-brown);
+  margin: 0 0 2rem;
+}
+.bonlog__media { margin: 0; }
+.bonlog__media img {
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  box-shadow: 0 14px 32px -20px rgba(26, 26, 46, 0.4);
+}
+
+
 /* ===== ブレークポイント ===== */
 
 /* タブレット: 余白縮小 */
@@ -571,4 +672,7 @@ html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
   }
   .split--reverse .split__media,
   .split--reverse .split__body { order: 0; }
+
+  .bonlog__inner { grid-template-columns: 1fr; }
+  .bonlog__media img { max-width: 300px; }
 }
