@@ -58,6 +58,7 @@
 | M05 | `hero-culture-mobile.webp` | culture ヒーロー(モバイル ≤768px、`<picture>` 出し分け) | 3:4 | 1080×1440 | 名品盆栽・美術館照明(hero-culture.webp の縦構図再構成) |
 | T01 | `texture-washi-light.webp` | 明色セクション背景の低不透明度オーバーレイ(タイル) | 1:1 | 2048×2048 | 生成り #F6F3EC 近傍の無地和紙テクスチャ |
 | T02 | `texture-washi-dark.webp` | 夜色セクション背景の低不透明度オーバーレイ(タイル) | 1:1 | 2048×2048 | 夜色 #161B17 近傍の無地和紙テクスチャ |
+| W01 | `world-bonsai.webp`(任意) | culture「世界の BONSAI」ダーク章(現在は hero-culture.webp を再利用中) | 16:9 | 2000×1125 | 海外の盆栽展示会場の雰囲気(暗めのホール、スポットライトの並ぶ展示台) |
 
 ---
 
@@ -132,6 +133,16 @@
   > An extreme close-up of plain handmade Japanese washi paper in a very dark near-black tone close to #161B17, fine natural paper fibers and subtle uneven pulp density (sukimura) visible only as the faintest tonal variations, flat frontal view filling the entire frame edge to edge, even homogeneous texture designed to tile seamlessly with no distinct features near the edges, no pattern, no gradient, soft perfectly even diffused light with no visible light falloff, deep depth of field, everything in sharp focus, photorealistic, professional photography, Japanese aesthetic, high detail
 - Negative:
   > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, illustration, painting, CGI look, visible seams, strong pattern, repeating motif, brightness gradient, vignetting, creases, folds, wrinkles, stains, colored fibers, embedded leaves or petals
+
+### W01. world-bonsai.webp(任意 — 生成は必須ではない)
+- 保存先: `assets/images/world-bonsai.webp`
+- 使用箇所: `culture.html` 「世界の BONSAI」ダーク章(`.chapter--dark` の背景)。現在はヒーローと同じ `hero-culture.webp` を再利用しており、同一ページ内での画像重複を解消したい場合に生成して差し替える。差し替え時は `culture.html` の該当 `<img>` の src と alt を更新すること(width/height は 2000×1125 に変更)。
+- アスペクト比 / 解像度: 16:9 / 2000×1125px、WebP 品質80
+- 表示上の注意: ダークセクションで使用するため暗めのトーン。左1/3にテキストが載るため左側を静かに。「世界へ広がった BONSAI」の物語を画で補強する(海外の展示会場の空気感)。
+- Prompt:
+  > A dimly lit international bonsai exhibition hall, a row of refined bonsai trees displayed on individual pedestals each under its own soft spotlight, receding into the dark depth of the hall, quiet reverent gallery atmosphere suggesting a world-class exhibition, calm negative space on the left third of the frame, no people visible, moderate depth of field, photorealistic, professional photography, muted earthy color palette (cream #F6F3EC, deep pine green #2E4B3C, dark brown #4A3728), Japanese aesthetic, high detail
+- Negative:
+  > oversaturated colors, HDR look, plastic-looking leaves, deformed branches, warped pot, text, watermark, logo, people's faces, people, crowds, illustration, painting, CGI look, bright background
 
 ---
 

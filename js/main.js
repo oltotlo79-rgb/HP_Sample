@@ -212,7 +212,13 @@
     let ticking = false;
     const update = () => {
       parallaxEls.forEach((el) => {
-        const rect = el.parentElement.getBoundingClientRect();
+        // 親ではなくセクション（.hero / .chapter）の矩形を基準にする。
+        // 直近の親は <picture>（display: contents）でボックスを生成せず
+        // getBoundingClientRect() が 0 を返すため、parentElement は使えない。
+        // el 自身の矩形も translateY の影響を受けてフィードバックするので不可。
+        const section = el.closest('.hero, .chapter');
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
         if (rect.bottom > 0 && rect.top < window.innerHeight) {
           el.style.transform = `translateY(${rect.top * -0.15}px)`;
         }
