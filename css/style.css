@@ -1264,3 +1264,31 @@ html.js-enabled .season__panel:not([hidden]) {
   font-size: 0.93rem;
   line-height: 1.95;
 }
+
+/* --- 404 --- */
+/* ヒーローを持たないため .site-header--solid（不透明）を使用。
+   固定ヘッダーの下に隠れないよう padding-top を確保し、
+   フッターが浮かないよう min-height で中央配置する。 */
+.notfound {
+  min-height: 60vh;
+  min-height: 60svh;
+  padding: calc(var(--header-h) + var(--space-section)) clamp(1.25rem, 5vw, 3rem) var(--space-section);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.notfound__inner {
+  max-width: var(--width-text);
+  margin: 0 auto;
+}
+.notfound__inner .section-label {
+  display: inline-block;
+}
+.notfound__title {
+  font-size: clamp(1.6rem, 4.4vw, 2.4rem);
+  margin-bottom: 1.5rem;
+}
+.notfound__copy {
+  margin-bottom: 2.5rem;
+}
