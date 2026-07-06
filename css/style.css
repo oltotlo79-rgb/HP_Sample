@@ -1,0 +1,1300 @@
+@charset "utf-8";
+
+/* =========================================================
+   盆栽のあるくらし — デザインシステム
+   1. トークン / リセット / ベースタイポグラフィ
+   2. 共通コンポーネント（ヘッダー・ボタン・CTA・フッター・演出）
+   3. セクションレイアウト（ヒーロー・章・スプリット・カード・汎用）
+   ========================================================= */
+
+/* ===== 1. Design tokens ===== */
+:root {
+  --c-base: #F6F3EC;
+  --c-pine: #2E4B3C;
+  --c-brown: #4A3728;
+  --c-night: #161B17;
+  --c-moss: #8A9A5B;
+  --c-kinoko: #F0ECE4;
+  --c-yozora: #1A1A2E;
+  --c-ink: #26221C;          /* 本文文字色 */
+  --c-ink-light: #F2EFE8;    /* ダーク背景上の文字色 */
+  --font-serif: 'Shippori Mincho', 'Hiragino Mincho ProN', serif;
+  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+  --space-section: clamp(5rem, 12vw, 10rem);
+  --width-content: 1080px;
+  --width-text: 42rem;
+  --header-h: 4.5rem;
+}
+
+/* ===== Reset / base ===== */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--c-base);
+  color: var(--c-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 2;
+  letter-spacing: 0.06em;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; background: #E5E0D5; }
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 500; line-height: 1.6; letter-spacing: 0.12em; }
+h1 { margin: 0; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--c-ink); outline-offset: 3px; }
+/* 暗色面（写真・夜色背景）上ではフォーカスリングを明色に */
+.hero :focus-visible,
+.chapter :focus-visible,
+.chapter--dark :focus-visible,
+.site-footer :focus-visible,
+.site-header:not(.is-scrolled):not(.site-header--solid) :focus-visible {
+  outline-color: var(--c-ink-light);
+}
+/* ただしモバイルドロワー展開中（生成り背景）は墨色に戻す */
+.site-header .site-header__links.is-open :focus-visible {
+  outline-color: var(--c-ink);
+}
+/* ドロワー展開中の×ボタン（main.js は aria-expanded を設定する）も墨色に */
+.nav-toggle[aria-expanded="true"] {
+  color: var(--c-ink);
+}
+.site-header .nav-toggle[aria-expanded="true"]:focus-visible {
+  outline-color: var(--c-ink);
+}
+
+
+/* ===== 2. 共通コンポーネント ===== */
+
+/* --- ヘッダー --- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: var(--header-h);
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  color: var(--c-ink-light);
+  background: transparent;
+  transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+/* 透明状態でのナビ可読性スクリム（写真上の白文字の可読性目的） */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(rgba(22, 27, 23, 0.38), transparent);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.site-header.is-scrolled {
+  color: var(--c-ink);
+  background: var(--c-base);
+  box-shadow: 0 1px 0 rgba(38, 34, 28, 0.08);
+}
+.site-header.is-scrolled::before { opacity: 0; }
+
+/* 【契約】ヒーロー（写真背景）を持たないページ（404 等）では、
+   透明ヘッダーの白文字が生成り背景に載って読めなくなるため、
+   必ず `class="site-header site-header--solid"` として使用すること。
+   初期状態から .is-scrolled と同等の見た目（生成り背景 + 墨色文字）になる。 */
+.site-header--solid {
+  color: var(--c-ink);
+  background: var(--c-base);
+  box-shadow: 0 1px 0 rgba(38, 34, 28, 0.08);
+}
+.site-header--solid::before { opacity: 0; }
+
+.site-header__logo {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.site-header__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+.site-header__links a {
+  position: relative;
+  padding: 0.25rem 0;
+  transition: opacity 0.3s ease;
+}
+/* .btn（BON-LOG ボタン）以外のナビリンクに下線スライドを添える */
+.site-header__links a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.site-header__links a:not(.btn):hover::after,
+.site-header__links a:not(.btn):focus-visible::after,
+.site-header__links a[aria-current="page"]::after { transform: scaleX(1); }
+.site-header__links a:not(.btn):hover { opacity: 0.85; }
+
+/* ハンバーガー（モバイルのみ表示） */
+.nav-toggle {
+  display: none;
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.nav-toggle span {
+  position: absolute;
+  left: 50%;
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+  transform: translateX(-50%);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.nav-toggle span:nth-child(1) { top: 0.85rem; }
+.nav-toggle span:nth-child(2) { top: 1.35rem; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 1.1rem; transform: translateX(-50%) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { top: 1.1rem; transform: translateX(-50%) rotate(-45deg); }
+
+/* --- ボタン --- */
+.btn {
+  display: inline-block;
+  padding: 0.85em 2.4em;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: var(--c-ink);
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+.btn:hover {
+  background: var(--c-ink);
+  color: var(--c-base);
+}
+.btn--light {
+  color: var(--c-ink-light);
+}
+.btn--light:hover {
+  background: var(--c-ink-light);
+  color: var(--c-ink);
+}
+.btn--bonlog {
+  border-color: var(--c-yozora);
+  background: var(--c-yozora);
+  color: var(--c-kinoko);
+}
+.btn--bonlog:hover {
+  background: transparent;
+  color: var(--c-yozora);
+}
+.btn--bonlog-nav {
+  padding: 0.5em 1.4em;
+  border: 1px solid currentColor;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  /* .btn 基底の color: var(--c-ink) を打ち消してヘッダーの文字色に追従させる
+     （透明ヘッダー=白 / is-scrolled・--solid=墨。暗いヒーロー上での不可視化防止） */
+  color: inherit;
+}
+/* 透明ヘッダー時（白文字）: ホバーで白地・墨文字 */
+.btn--bonlog-nav:hover {
+  background: var(--c-ink-light);
+  color: var(--c-ink);
+}
+/* 生成りヘッダー時（墨文字）: ホバーで夜空色・鳥の子文字 */
+.is-scrolled .btn--bonlog-nav:hover,
+.site-header--solid .btn--bonlog-nav:hover {
+  background: var(--c-yozora);
+  border-color: var(--c-yozora);
+  color: var(--c-kinoko);
+}
+
+/* --- 全ページ共通 CTA バンド --- */
+.cta-band {
+  background: var(--c-kinoko);
+  text-align: center;
+  padding: var(--space-section) clamp(1.25rem, 5vw, 3rem);
+}
+.cta-band__copy {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.7;
+  letter-spacing: 0.1em;
+  margin: 0 auto;
+  max-width: var(--width-text);
+}
+.cta-band__sub {
+  margin: 1.5rem auto 2.5rem;
+  max-width: var(--width-text);
+  font-size: 0.95rem;
+  color: var(--c-brown);
+}
+
+/* --- フッター --- */
+.site-footer {
+  background: var(--c-night);
+  color: var(--c-ink-light);
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 3rem) 2.5rem;
+}
+.site-footer__inner {
+  max-width: var(--width-content);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem 4rem;
+  justify-content: space-between;
+}
+.site-footer__logo {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.18em;
+}
+.site-footer nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  font-size: 0.9rem;
+}
+.site-footer nav a {
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+.site-footer nav a:hover { opacity: 1; }
+.site-footer__copyright {
+  max-width: var(--width-content);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(242, 239, 232, 0.15);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+/* --- スクロール表示演出（JS有効時のみ隠す） --- */
+html.js-enabled .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
+html.js-enabled .reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.js-enabled .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation: none !important; scroll-behavior: auto !important; }
+}
+/* 【注意】モーション v2（セクション6）の reduced-motion リセットは、同詳細度の
+   無条件ルール（セクション6）にソース順で負けないよう、ファイル末尾に配置している。 */
+
+/* 縦書きタイトル */
+.v-title { writing-mode: vertical-rl; letter-spacing: 0.35em; font-family: var(--font-serif); }
+
+/* 見出し等の折返し制御: 意味単位を括って語中分断を防ぐ
+   （<wbr> は日本語の分かち書きがないため実質無効。inline-block の塊なら
+   「塊の境界でだけ折り返してよい」という指定になる） */
+.nobr { display: inline-block; }
+
+/* --- 苔色ドットの箇条書き（.guide-list / .bonlog__features 共通の実体） --- */
+.dot-list,
+.guide-list,
+.bonlog__features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0 0 1.75rem;
+}
+.dot-list li,
+.guide-list li,
+.bonlog__features li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.93rem;
+  line-height: 1.9;
+}
+.dot-list li::before,
+.guide-list li::before,
+.bonlog__features li::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.82em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--c-moss);
+  border-radius: 50%;
+}
+.dot-list strong,
+.guide-list strong,
+.bonlog__features strong {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+
+/* ===== 3. セクションレイアウト ===== */
+
+/* --- 汎用セクション --- */
+.section {
+  padding: var(--space-section) clamp(1.25rem, 5vw, 3rem);
+}
+.section__inner {
+  max-width: var(--width-content);
+  margin: 0 auto;
+}
+.text-block {
+  max-width: var(--width-text);
+}
+
+/* 本文インラインリンクの識別（.btn 系は除外） */
+.text-block a:not(.btn),
+.split__body a:not(.btn),
+.chapter__body a:not(.btn) {
+  color: var(--c-pine);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+/* 暗色面（章セクション）では pine は沈むため、文字色を継承し下線のみで識別 */
+.chapter__body a:not(.btn) {
+  color: inherit;
+}
+
+/* セクション見出しの編集的パターン
+   （小さな英字/漢字ラベル + 明朝見出し） */
+.section-label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--c-pine); /* 明色面: moss は小テキストで AA 不合格のため pine */
+  margin-bottom: 1.25rem;
+}
+/* 暗色面では moss で AA を満たす（約5:1） */
+.hero .section-label,
+.chapter .section-label,
+.chapter--dark .section-label,
+.site-footer .section-label {
+  color: var(--c-moss);
+}
+/* 写真面のラベル（章番号 一/二/三、サブページヒーローの Guide 等）は
+   moss だと写真に沈むため、明色 + 細罫の編集的あしらいで視認性を確保する */
+.hero .section-label,
+.chapter .section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--c-ink-light);
+  opacity: 0.92;
+}
+.hero .section-label::after,
+.chapter .section-label::after {
+  content: "";
+  width: 2.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  margin: 0 0 1.5rem;
+}
+
+/* --- ヒーロー --- */
+/* 【スタッキング契約】.hero/.chapter は isolation:isolate で独立の
+   スタッキングコンテキストを作る。内部は 背景img(z:0) < スクリム::before(z:1)
+   < 本文(z:2) の順。isolate なしでは z-index 負値がルートに巻き上げられ、
+   DOM順で後の img がスクリムより上に来て文字が読めなくなる。 */
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;      /* svh 非対応フォールバック */
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: var(--c-ink-light);
+}
+/* モバイル出し分けの <picture> はレイアウト箱を生成させない
+   （中の img.hero__bg は position:absolute で .hero / .hero__kenburns 基準に配置される）。 */
+.hero picture,
+.hero__kenburns picture { display: contents; }
+.hero__bg {
+  position: absolute;
+  top: -10%;              /* height 120% の余裕を上下に割り振り、下方向移動でも上辺が露出しない */
+  left: 0;
+  width: 100%;
+  height: 120%;           /* パララックス時にはみ出さない余裕 */
+  object-fit: cover;
+  z-index: 0;
+}
+/* 写真上の可読性のためのスクリム（写真可読性目的のグラデは許容） */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(22, 27, 23, 0.55) 0%, rgba(22, 27, 23, 0.15) 45%, rgba(22, 27, 23, 0) 75%);
+}
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--width-content);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 6vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+/* h1 は <br> で「小さな鉢の、/大きな宇宙。」の均整2列
+   （vertical-rl では右列→左列）。max-height の強制折返しは
+   語中分断を生むため使わない。 */
+.hero__inner .v-title {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.5;
+}
+.hero__sub {
+  max-width: 30rem;
+  font-size: 1rem;
+  line-height: 2.2;
+}
+
+/* 下層ページ用の低いヒーロー */
+.hero--sub {
+  min-height: 60vh;
+  min-height: 60svh;
+}
+/* サブページ共通の横書きヒーロータイトル（.v-title を使わない裁量デザイン）。
+   guide 以外の下層ページでも共通利用するためコンポーネント層へ配置。 */
+.hero__title {
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+}
+
+/* --- 全画面写真の章セクション --- */
+/* スタッキングは .hero と同じ契約（isolate + img:0 / scrim:1 / 本文:2） */
+.chapter {
+  position: relative;
+  isolation: isolate;
+  min-height: 90vh;
+  min-height: 90svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: var(--c-ink-light);
+}
+.chapter__bg {
+  position: absolute;
+  top: -10%;              /* .hero__bg と同じくパララックスの上下余裕 */
+  left: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  z-index: 0;
+}
+.chapter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* 中間〜右端を底上げし、本文行末（--width-text の右端）の可読性を確保 */
+  background: linear-gradient(90deg, rgba(22, 27, 23, 0.5) 0%, rgba(22, 27, 23, 0.22) 60%, rgba(22, 27, 23, 0.06) 100%);
+}
+.chapter__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--width-content);
+  margin: 0 auto;
+  padding: var(--space-section) clamp(1.5rem, 6vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.75rem;
+}
+.chapter__inner .v-title {
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+}
+.chapter__body {
+  max-width: var(--width-text);
+}
+/* night 背景は画像ロード失敗時のフォールバック
+   （img は z:0 で要素背景より上に描画される） */
+.chapter--dark {
+  background: var(--c-night);
+  color: var(--c-ink-light);
+}
+/* 暗い写真章はスクリムをやや強め、右側まで薄く残して可読性を確保 */
+.chapter--dark::before {
+  background: linear-gradient(90deg, rgba(22, 27, 23, 0.6) 0%, rgba(22, 27, 23, 0.25) 55%, rgba(22, 27, 23, 0.1) 100%);
+}
+
+/* --- 2カラム（写真 + 本文）交互配置 --- */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  max-width: var(--width-content);
+  margin: 0 auto;
+  padding: var(--space-section) clamp(1.25rem, 5vw, 3rem);
+}
+.split__media { margin: 0; }
+.split__media img { width: 100%; }
+.split__body {
+  max-width: var(--width-text);
+}
+.split--reverse .split__media { order: 2; }
+.split--reverse .split__body { order: 1; }
+
+/* --- カードグリッド --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: var(--width-content);
+  margin: 0 auto;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(38, 34, 28, 0.12);
+  background: transparent;
+  transition: border-color 0.4s ease, transform 0.4s ease;
+}
+.card:hover {
+  border-color: rgba(38, 34, 28, 0.35);
+  transform: translateY(-4px);
+}
+.card__media { margin: 0; overflow: hidden; }
+.card__media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 1.2s ease;
+}
+/* ゆったりズーム。reveal-mask（is-visible 後 img:scale(1)）より高い詳細度で勝たせる */
+.card:hover .card__media img { transform: scale(1.05); }
+html.js-enabled .card:hover .card__media img { transform: scale(1.05); }
+.card__body {
+  padding: 1.5rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.card__title {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+/* タイトル下線が左から伸びる */
+.card__title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 1px;
+  background: var(--c-pine);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card:hover .card__title::after,
+.card:focus-within .card__title::after { transform: scaleX(1); }
+.card__lead {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: var(--c-brown);
+  margin: 0;
+}
+.card__link {
+  margin-top: auto;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--c-pine);
+}
+
+
+/* ===== 4. index 固有 ===== */
+
+/* --- ヒーローのスクロール誘導 --- */
+.hero__scroll {
+  position: absolute;
+  z-index: 2;             /* スクリム(z:1)より上に置く */
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  writing-mode: vertical-rl;
+  color: var(--c-ink-light);
+  opacity: 0.85;
+}
+.hero__scroll::after {
+  content: "";
+  width: 1px;
+  height: 3rem;
+  background: currentColor;
+  transform-origin: top;
+  animation: scroll-line 2.4s ease-in-out infinite;
+}
+@keyframes scroll-line {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.3; }
+  50% { transform: scaleY(1); opacity: 0.75; }
+}
+
+/* --- BON-LOG 告知セクション --- */
+.bonlog {
+  background: var(--c-kinoko);
+  padding: var(--space-section) clamp(1.25rem, 5vw, 3rem);
+}
+.bonlog__inner {
+  max-width: var(--width-content);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+.bonlog__text { max-width: 34rem; }
+/* BON-LOG ブランド色（夜空色）を見出しのアクセントに限定使用 */
+.bonlog .section-label { color: var(--c-yozora); }
+.bonlog__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  color: var(--c-yozora);
+  margin: 0 0 0.9rem;
+}
+.bonlog__sub {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  color: var(--c-yozora);
+  margin: 0 0 1.75rem;
+}
+.bonlog__body { margin: 0 0 1.75rem; }
+/* .bonlog__features のドット・余白は共通の .dot-list 実体（セクション2）に集約 */
+.bonlog__note {
+  font-size: 0.85rem;
+  color: var(--c-brown);
+  margin: 0 0 2rem;
+}
+.bonlog__media { margin: 0; }
+.bonlog__media img {
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  box-shadow: 0 14px 32px -20px rgba(26, 26, 46, 0.4);
+}
+
+
+/* ===== 5. guide 固有 ===== */
+
+/* ステップ番号（明朝の漢数字を大きくあしらう） */
+.step-num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(2.75rem, 7vw, 4.25rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--c-pine);
+  margin-bottom: 0.75rem;
+}
+
+/* 最初の一鉢のおすすめリスト（ドット・余白・strong は共通の .dot-list 実体に集約） */
+
+
+/* =========================================================
+   6. モーションデザイン v2（リッチ演出）
+   すべて transform / opacity / clip-path ベース。
+   prefers-reduced-motion: reduce では上部の演出ブロックで全て無効化。
+   ========================================================= */
+
+/* --- 6-1. オープニング（初回のみ・index） --- */
+/* JS無効時は表示しない（下の js-enabled 配下でのみ表示） */
+.opening { display: none; }
+html.js-enabled .opening {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;                 /* ヘッダー(100)・章ナビ(90)より上 */
+  background: transparent;       /* 夜色は上下2枚の幕（::before/::after）が担う */
+  overflow: hidden;
+  /* CSS単体フェイルセーフ: 万一 JS が停止しても 4s 後に必ず塞がなくする */
+  animation: opening-failsafe 0s linear 4s forwards;
+}
+/* 上下2枚の幕（夜色）。中央の合わせ目は 1px 重ねて隙間を防ぐ */
+html.js-enabled .opening::before,
+html.js-enabled .opening::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(50% + 1px);
+  background: var(--c-night);
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+}
+html.js-enabled .opening::before { top: 0; }
+html.js-enabled .opening::after { bottom: 0; }
+/* タイトルが墨のように滲んで出現（blur+opacity, 約1.1s） */
+html.js-enabled .opening__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 6vw, 3.1rem);
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;          /* letter-spacing 由来の右余白を視覚的に中央補正 */
+  white-space: nowrap;
+  filter: blur(10px);
+  opacity: 0;
+  animation: opening-ink 1.1s ease forwards;
+}
+@keyframes opening-ink {
+  from { filter: blur(10px); opacity: 0; }
+  to   { filter: blur(0);    opacity: 1; }
+}
+/* 幕が上下に割れて開く + タイトルは消える（JS が is-opening-out を付与） */
+html.js-enabled .opening.is-opening-out::before { transform: translateY(-100%); }
+html.js-enabled .opening.is-opening-out::after  { transform: translateY(100%); }
+html.js-enabled .opening.is-opening-out .opening__title {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+@keyframes opening-failsafe {
+  to { visibility: hidden; pointer-events: none; }
+}
+
+/* --- 6-2. ヒーロー Ken Burns（ラッパーに適用。img はパララックス専用） --- */
+/* スタッキング契約: 背景の z:0 をラッパーへ移設。img はラッパー内で自由に translate 可 */
+.hero__kenburns {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+html.js-enabled .hero__kenburns { transform: scale(1.08); }
+html.js-enabled .hero.is-hero-active .hero__kenburns {
+  animation: ken-burns 7s cubic-bezier(0.16, 0.62, 0.28, 1) forwards;
+}
+@keyframes ken-burns {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+
+/* --- 6-3. 文字の一字立ち上がり（.js-chars → span.char） --- */
+html.js-enabled .js-chars .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+html.js-enabled .js-chars.is-visible .char { opacity: 1; transform: none; }
+
+/* サブコピー・スクロール誘導は文字より遅れてフェード（ヒーロー開幕時） */
+html.js-enabled .hero__sub--delayed,
+html.js-enabled .hero__scroll--delayed {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+html.js-enabled .hero.is-hero-active .hero__sub--delayed {
+  opacity: 1;
+  transition-delay: 0.9s;
+}
+html.js-enabled .hero.is-hero-active .hero__scroll--delayed {
+  opacity: 0.85;                /* .hero__scroll の既定不透明度に合わせる */
+  transition-delay: 1.2s;
+}
+
+/* --- 6-4. 写真のマスクリビール（.split__media / .card__media 共通） --- */
+/* clip-path は figure(.reveal-mask) ではなく内側の img に掛ける。
+   IntersectionObserver はレイアウトジオメトリで交差判定するため figure に掛けても
+   発火はするが、監視トリガー（figure）とマスク描画対象（img）を分離した方が
+   挙動が明確で、img の scale とマスクを同一要素・同一 transition に揃えられる。 */
+html.js-enabled .reveal-mask { overflow: hidden; }
+html.js-enabled .reveal-mask img {
+  clip-path: inset(0 100% 0 0);
+  transform: scale(1.06);
+  transition: clip-path 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.js-enabled .reveal-mask.is-visible img { clip-path: inset(0); transform: scale(1); }
+
+/* --- 6-5. 章インジケータ（index。1024px以下は非表示） --- */
+/* mix-blend-mode: difference により、明色/暗色どちらのセクション上でも視認できる */
+.chapter-nav {
+  position: fixed;
+  top: 50%;
+  right: clamp(1rem, 2.6vw, 2.25rem);
+  z-index: 90;
+  transform: translateY(-50%);
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.chapter-nav ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.15rem;
+}
+.chapter-nav ul::before {         /* 細い縦ライン */
+  content: "";
+  position: absolute;
+  top: -0.4rem;
+  bottom: -0.4rem;
+  right: 3px;                     /* ドット中心に合わせる（dot幅7px/2 - 0.5px 弱） */
+  width: 1px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.chapter-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+}
+.chapter-nav a::before {          /* ラベル（ホバー/現在時に表示） */
+  content: attr(data-label);
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(0.5rem);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.chapter-nav__dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  transform: scale(0.78);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.chapter-nav a:hover .chapter-nav__dot,
+.chapter-nav a:focus-visible .chapter-nav__dot,
+.chapter-nav a.is-current .chapter-nav__dot {
+  opacity: 1;
+  transform: scale(1.45);
+}
+.chapter-nav a:hover::before,
+.chapter-nav a:focus-visible::before,
+.chapter-nav a.is-current::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- 6-6. 舞い散る紅葉キャンバス（第二章・スクリムz:1と本文z:2の間） --- */
+.leaves-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* --- 6-7. 和紙テクスチャ・オーバーレイ --- */
+/* 【本適用】codex 生成の texture-washi-light.webp を全面オーバーレイに使用。
+   2×2 タイル検証で継ぎ目・端の明度差（<1/255）・ビネットなしを確認済み。
+   2048px 原寸を background-size 1024px で縮小表示し粒を細かく上品に。
+   opacity 0.04 + multiply で「ほぼ無地だがわずかに紙の質感」の状態。 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2000;                 /* 本文の上・オープニング(3000)の下 */
+  pointer-events: none;
+  background: url("/assets/images/texture-washi-light.webp") repeat;
+  background-size: 1024px 1024px;
+  opacity: 0.04;
+  mix-blend-mode: multiply;      /* 低不透明度のため全面掛けでも違和感が出にくい */
+}
+
+
+/* ===== ブレークポイント ===== */
+
+/* タブレット: 余白縮小 */
+@media (max-width: 1024px) {
+  :root {
+    --space-section: clamp(4rem, 9vw, 7rem);
+  }
+  .split { gap: clamp(1.75rem, 4vw, 3rem); }
+  /* 章インジケータは 1024px 以下で非表示 */
+  .chapter-nav { display: none; }
+}
+
+/* モバイル: 1カラム + ハンバーガー */
+@media (max-width: 768px) {
+  .nav-toggle { display: block; z-index: 110; }
+
+  .site-header__links {
+    position: fixed;
+    inset: 0;
+    z-index: 105;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--c-base);
+    color: var(--c-ink);
+    font-size: 1.1rem;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+  }
+  .site-header__links.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  /* ドロワー展開中は背景スクロールをロック（:has 非対応ブラウザでは劣化許容） */
+  html:has(.site-header__links.is-open) {
+    overflow: hidden;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .split--reverse .split__media,
+  .split--reverse .split__body { order: 0; }
+
+  .bonlog__inner { grid-template-columns: 1fr; }
+  .bonlog__media img { max-width: 300px; }
+
+  /* モバイルでは本文が画面幅いっぱいに及ぶため、
+     左→右の横グラデでは右端の可読性が不足する。縦方向に切替。 */
+  .hero::before,
+  .chapter::before {
+    background: linear-gradient(rgba(22, 27, 23, 0.45), rgba(22, 27, 23, 0.15));
+  }
+  .chapter--dark::before {
+    background: linear-gradient(rgba(22, 27, 23, 0.55), rgba(22, 27, 23, 0.25));
+  }
+}
+
+
+/* =========================================================
+   7. prefers-reduced-motion — モーション v2 の全無効化
+   【重要】このブロックは必ずファイル末尾（セクション6より後）に置くこと。
+   セクション6の無条件ルールと同詳細度のため、ソース順が前だと負けて
+   Ken Burns の scale(1.08) 固着や reveal-mask のアニメ再生が起きる。
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  /* オープニングは表示しない（JS の即時除去に加えた CSS 側の保証） */
+  html.js-enabled .opening { display: none; }
+  /* Ken Burns の初期 scale を解除（* { animation: none } で開始もしないため必須） */
+  html.js-enabled .hero__kenburns { transform: none; }
+  /* 文字立ち上がり・遅延フェードは最初から可視 */
+  html.js-enabled .js-chars .char { opacity: 1; transform: none; transition: none; }
+  html.js-enabled .hero__sub--delayed,
+  html.js-enabled .hero__scroll--delayed { opacity: 1; transform: none; transition: none; }
+  /* マスクリビールは即時表示 */
+  html.js-enabled .reveal-mask img { clip-path: none; transform: none; transition: none; }
+  /* カード・下線ホバー等の transition も即時反映 */
+  html.js-enabled .card__media img,
+  .card__title::after,
+  .site-header__links a:not(.btn)::after { transition: none; }
+}
+
+
+/* =========================================================
+   8. species 固有（樹種のメタ表示）
+   写真章の本文（.chapter__body）内で、分類タグ・難易度を
+   上品な小テキストで並べる。バッジではなく、細罫で仕切った定義列。
+   色は .chapter の明色（--c-ink-light）を継承し、暗色・明色どちらの
+   写真章スクリム上でも読めるようにする。
+   ========================================================= */
+.sp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.25rem;
+  margin: 1.6rem 0 0;
+  font-family: var(--font-serif);
+}
+.sp-meta__item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+/* 2つ目以降は細い縦罫で仕切る（明色面でも沈まない半透明の明色罫） */
+.sp-meta__item + .sp-meta__item {
+  padding-left: 1.25rem;
+  border-left: 1px solid rgba(242, 239, 232, 0.4);
+}
+.sp-meta dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  opacity: 0.72;
+}
+.sp-meta dd {
+  margin: 0;
+  font-size: 0.92rem;
+  letter-spacing: 0.1em;
+}
+
+
+/* =========================================================
+   9. care 固有（四季の作業カレンダー・タブUI）
+   タブUIの ARIA/挙動は main.js（Season tabs）が駆動。ここは見た目のみ。
+   選択状態は角丸ピルを避け、明朝タブ + 墨色下線のあしらいで示す。
+   パネル切替は opacity/transform の軽いフェード（reduced-motion で無効）。
+   ========================================================= */
+.season__inner {
+  max-width: var(--width-content);
+  margin: 0 auto;
+}
+.season__lead {
+  max-width: var(--width-text);
+  margin: 0 0 2.5rem;
+}
+
+/* タブ一覧: 下端に細罫を通し、選択タブの下線をそこに重ねる */
+.season__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.25rem, 4vw, 2.75rem);
+  margin: 0 0 clamp(2rem, 5vw, 3rem);
+  border-bottom: 1px solid rgba(38, 34, 28, 0.14);
+}
+.season__tab {
+  position: relative;
+  margin: 0;
+  padding: 0.35rem 0.15rem 0.9rem;
+  border: 0;
+  background: transparent;
+  color: var(--c-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.35s ease;
+}
+.season__tab:hover { opacity: 0.8; }
+/* 選択状態: 墨色の下線を罫の上に重ねる（角丸ピルは不可） */
+.season__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--c-ink);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.season__tab[aria-selected="true"] {
+  opacity: 1;
+}
+.season__tab[aria-selected="true"]::after { transform: scaleX(1); }
+
+/* パネル: 写真 + 作業リストの2カラム（.split に準じた交互なしの左右） */
+.season__panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 4.5rem);
+}
+/* display:grid が UA の [hidden]{display:none} を上書きしてしまうため明示的に隠す
+   （JS が非選択パネルに hidden 属性を付与する） */
+.season__panel[hidden] { display: none; }
+.season__media { margin: 0; }
+.season__media img { width: 100%; }
+.season__body { max-width: var(--width-text); }
+.season__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  margin: 0 0 0.5rem;
+}
+.season__note {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--c-brown);
+  margin: 0 0 1.75rem;
+}
+
+/* 切替フェード（JS有効時のみ）: 表示中パネルを軽く立ち上げる */
+html.js-enabled .season__panel:not([hidden]) {
+  animation: season-fade 0.55s ease both;
+}
+@keyframes season-fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 768px) {
+  .season__panel { grid-template-columns: 1fr; }
+  .season__media { order: 0; margin: 0 0 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-enabled .season__panel:not([hidden]) { animation: none; }
+  .season__tab,
+  .season__tab::after { transition: none; }
+}
+
+
+/* =========================================================
+   10. culture 固有（歴史・文化の縦タイムライン）
+   左に細い縦罫を通し、明朝の時代ラベル + 本文を積む年表。
+   角丸カード・影・装飾アイコンは用いず、罫と苔色ノードのみの
+   編集的あしらい。各項目は共通の .reveal で順に立ち上がる。
+   ========================================================= */
+.timeline__lead {
+  max-width: var(--width-text);
+  margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+.timeline {
+  position: relative;
+  max-width: var(--width-text);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* 左の細い縦罫（ノード中心を貫く） */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: 0.34rem;
+  width: 1px;
+  background: rgba(38, 34, 28, 0.18);
+}
+.timeline__item {
+  position: relative;
+  padding-left: 2.4rem;
+  padding-bottom: clamp(2rem, 5vw, 3.25rem);
+}
+.timeline__item:last-child { padding-bottom: 0; }
+/* 複数項目が同時に視界へ入っても順次立ち上がるよう、80ms 刻みの遅延を付与
+   （transition-delay は .reveal の transition が有効なときのみ意味を持ち、
+   reduced-motion では transition ごと無効化されるため配慮不要） */
+.timeline__item:nth-child(2) { transition-delay: 0.08s; }
+.timeline__item:nth-child(3) { transition-delay: 0.16s; }
+.timeline__item:nth-child(4) { transition-delay: 0.24s; }
+.timeline__item:nth-child(5) { transition-delay: 0.32s; }
+.timeline__item:nth-child(6) { transition-delay: 0.4s; }
+/* 罫上に載る苔色のノード（.dot-list と同系のあしらい） */
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.55em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--c-moss);
+}
+.timeline__era {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2.6vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  color: var(--c-pine);
+  margin-bottom: 0.55rem;
+}
+.timeline__body {
+  font-size: 0.93rem;
+  line-height: 1.95;
+}
+
+/* --- 404 --- */
+/* ヒーローを持たないため .site-header--solid（不透明）を使用。
+   固定ヘッダーの下に隠れないよう padding-top を確保し、
+   フッターが浮かないよう min-height で中央配置する。 */
+.notfound {
+  min-height: 60vh;
+  min-height: 60svh;
+  padding: calc(var(--header-h) + var(--space-section)) clamp(1.25rem, 5vw, 3rem) var(--space-section);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.notfound__inner {
+  max-width: var(--width-text);
+  margin: 0 auto;
+}
+.notfound__inner .section-label {
+  display: inline-block;
+}
+.notfound__title {
+  font-size: clamp(1.6rem, 4.4vw, 2.4rem);
+  margin-bottom: 1.5rem;
+}
+.notfound__copy {
+  margin-bottom: 2.5rem;
+}
