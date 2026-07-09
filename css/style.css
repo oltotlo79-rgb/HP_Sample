@@ -1034,6 +1034,201 @@ body::before {
   }
 }
 
+@media (max-width: 768px) {
+  :root {
+    --space-section: clamp(3.5rem, 13vw, 5rem);
+    --header-h: 4rem;
+  }
+
+  body {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  .site-header {
+    min-height: var(--header-h);
+    padding-inline: 1.25rem;
+  }
+  .site-header__logo {
+    font-size: 0.98rem;
+    letter-spacing: 0.14em;
+  }
+
+  .section,
+  .split,
+  .cta-band,
+  .bonlog {
+    padding-inline: 1.35rem;
+  }
+
+  .split {
+    gap: 1.6rem;
+    padding-block: var(--space-section);
+  }
+  .split__body { max-width: none; }
+  .split__media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .section-title,
+  .cta-band__copy,
+  .bonlog__title {
+    text-wrap: balance;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .card__body {
+    padding: 1.35rem 1.25rem 1.5rem;
+  }
+
+  html.js-enabled .hero__kenburns,
+  html.js-enabled .hero.is-hero-active .hero__kenburns {
+    transform: none;
+    animation: none;
+  }
+
+  .hero,
+  .hero--sub {
+    align-items: stretch;
+  }
+  .hero {
+    min-height: 100svh;
+  }
+  .hero--sub {
+    min-height: 72svh;
+  }
+  .hero__bg {
+    top: 0;
+    height: 100%;
+    transform: none !important;
+    object-position: center;
+  }
+  .hero:not(.hero--sub) .hero__bg {
+    object-position: 28% center;
+  }
+  .hero__inner {
+    min-height: inherit;
+    padding: calc(var(--header-h) + 2.25rem) 1.35rem 2.75rem;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+  .hero:not(.hero--sub) .hero__inner {
+    padding-top: calc(var(--header-h) + 3rem);
+  }
+  .hero__inner .v-title {
+    font-size: clamp(1.9rem, 10vw, 2.45rem);
+    line-height: 1.28;
+    letter-spacing: 0.18em;
+  }
+  .hero__title {
+    max-width: min(100%, 11em);
+    font-size: clamp(1.75rem, 8vw, 2.2rem);
+    line-height: 1.45;
+    letter-spacing: 0.06em;
+    text-wrap: balance;
+  }
+  .hero__sub {
+    max-width: min(100%, 19rem);
+    font-size: 0.9rem;
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+  }
+  .hero:not(.hero--sub) .hero__sub {
+    max-width: 13.5rem;
+  }
+  .hero .section-label,
+  .chapter .section-label {
+    gap: 0.7rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.18em;
+  }
+  .hero .section-label::after,
+  .chapter .section-label::after {
+    width: 1.9rem;
+  }
+  .hero__scroll {
+    display: none;
+  }
+
+  .chapter,
+  .chapter--dark {
+    display: block;
+    min-height: 0;
+    overflow: visible;
+    background: var(--c-base);
+    color: var(--c-ink);
+  }
+  .chapter::before {
+    content: none;
+  }
+  .chapter__bg {
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
+    background: var(--c-night);
+    transform: none !important;
+  }
+  .chapter__inner {
+    padding: clamp(2.75rem, 11vw, 4.5rem) 1.35rem;
+    gap: 1rem;
+  }
+  .chapter__inner .v-title {
+    writing-mode: horizontal-tb;
+    max-width: 100%;
+    font-size: clamp(1.55rem, 7vw, 2rem);
+    line-height: 1.55;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+  .chapter__body {
+    max-width: none;
+    font-size: 0.94rem;
+    line-height: 1.95;
+  }
+  .chapter .section-label,
+  .chapter--dark .section-label {
+    color: var(--c-pine);
+    opacity: 1;
+  }
+  .chapter .section-label::after {
+    opacity: 0.4;
+  }
+  .chapter__body a:not(.btn) {
+    color: var(--c-pine);
+  }
+  .leaves-canvas {
+    display: none;
+  }
+
+  .sp-meta {
+    gap: 0.45rem 1rem;
+    margin-top: 1.25rem;
+  }
+  .sp-meta__item + .sp-meta__item {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .season__tabs {
+    gap: 0.8rem 1.4rem;
+  }
+  .season__tab {
+    font-size: 1.05rem;
+    letter-spacing: 0.12em;
+  }
+}
+
 
 /* =========================================================
    7. prefers-reduced-motion — モーション v2 の全無効化
